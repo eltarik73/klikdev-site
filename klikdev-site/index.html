@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klik&Dev — Développement Logiciel Sur Mesure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ═══════════════════════════════════════
+           DESIGN TOKENS
+        ═══════════════════════════════════════ */
+        :root {
+            --color-bg: #06090F;
+            --color-bg-card: #0D1117;
+            --color-bg-elevated: #161B22;
+            --color-surface: #1C2333;
+            --color-border: rgba(99, 130, 255, 0.12);
+            --color-border-hover: rgba(99, 130, 255, 0.3);
+
+            --color-primary: #6C63FF;
+            --color-primary-light: #8B83FF;
+            --color-primary-glow: rgba(108, 99, 255, 0.15);
+            --color-accent: #00D4AA;
+            --color-accent-glow: rgba(0, 212, 170, 0.12);
+            --color-warning: #FF6B6B;
+
+            --color-text: #E6EDF3;
+            --color-text-secondary: #8B949E;
+            --color-text-muted: #5C6370;
+
+            --font-display: 'Sora', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+
+            --shadow-glow: 0 0 60px rgba(108, 99, 255, 0.08);
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* ═══════════════════════════════════════
+           RESET & BASE
+        ═══════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-display);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ═══════════════════════════════════════
+           BACKGROUND EFFECTS
+        ═══════════════════════════════════════ */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(99, 130, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 130, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-gradient-orb {
+            position: fixed;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-gradient-orb--1 {
+            top: -300px;
+            right: -200px;
+            background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+        }
+
+        .bg-gradient-orb--2 {
+            bottom: 30%;
+            left: -300px;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.3) 0%, transparent 70%);
+        }
+
+        /* ═══════════════════════════════════════
+           NAVBAR
+        ═══════════════════════════════════════ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(6, 9, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--color-border);
+            transition: var(--transition-base);
+        }
+
+        .navbar__logo {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar__logo span:first-child { color: var(--color-primary-light); }
+        .navbar__logo span:nth-child(2) { color: var(--color-text-muted); }
+        .navbar__logo span:last-child { color: var(--color-accent); }
+
+        .navbar__links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .navbar__links a {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            transition: var(--transition-base);
+            position: relative;
+        }
+
+        .navbar__links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: var(--transition-base);
+        }
+
+        .navbar__links a:hover { color: var(--color-text); }
+        .navbar__links a:hover::after { width: 100%; }
+
+        .navbar__cta {
+            padding: 10px 24px;
+            background: var(--color-primary);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: white;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+
+        .navbar__cta:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.4);
+        }
+
+        /* Mobile nav toggle */
+        .navbar__toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        .navbar__toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--color-text);
+            margin: 5px 0;
+            transition: var(--transition-base);
+        }
+
+        /* ═══════════════════════════════════════
+           SECTION COMMON
+        ═══════════════════════════════════════ */
+        .section {
+            position: relative;
+            z-index: 1;
+            padding: 120px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section__label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--color-primary-light);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section__label::before {
+            content: '';
+            display: inline-block;
+            width: 32px;
+            height: 1px;
+            background: var(--color-primary);
+        }
+
+        .section__title {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .section__subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-secondary);
+            max-width: 600px;
+            line-height: 1.8;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ═══════════════════════════════════════
+           HERO SECTION
+        ═══════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+        }
+
+        .hero__content {
+            max-width: 720px;
+        }
+
+        .hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--color-primary-glow);
+            border: 1px solid var(--color-border);
+            border-radius: 100px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--color-primary-light);
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease both;
+        }
+
+        .hero__badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--color-accent);
+            animation: pulse 2s infinite;
+        }
+
+        .hero__title {
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 28px;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .hero__description {
+            font-size: 1.15rem;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin-bottom: 48px;
+            max-width: 560px;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero__actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-display);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-base);
+            border: none;
+        }
+
+        .btn--primary {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .btn--primary:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(108, 99, 255, 0.35);
+        }
+
+        .btn--ghost {
+            background: transparent;
+            color: var(--color-text);
+            border: 1px solid var(--color-border);
+        }
+
+        .btn--ghost:hover {
+            border-color: var(--color-border-hover);
+            background: var(--color-primary-glow);
+        }
+
+        .btn__arrow {
+            transition: var(--transition-base);
+        }
+
+        .btn:hover .btn__arrow { transform: translateX(4px); }
+
+        /* Code decoration */
+        .hero__code {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 420px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-glow);
+            animation: fadeInRight 1s ease 0.5s both;
+        }
+
+        .hero__code-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .hero__code-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .hero__code-dot--red { background: #FF5F57; }
+        .hero__code-dot--yellow { background: #FEBC2E; }
+        .hero__code-dot--green { background: #28C840; }
+
+        .hero__code-body {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            line-height: 2;
+            color: var(--color-text-secondary);
+        }
+
+        .hero__code-body .keyword { color: #C792EA; }
+        .hero__code-body .function { color: #82AAFF; }
+        .hero__code-body .string { color: var(--color-accent); }
+        .hero__code-body .comment { color: var(--color-text-muted); }
+        .hero__code-body .bracket { color: #FFD700; }
+
+        /* ═══════════════════════════════════════
+           STATS STRIP
+        ═══════════════════════════════════════ */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin: -60px 40px 0;
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats__item {
+            background: var(--color-bg-card);
+            padding: 36px 32px;
+            text-align: center;
+            transition: var(--transition-base);
+        }
+
+        .stats__item:hover {
+            background: var(--color-bg-elevated);
+        }
+
+        .stats__number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 4px;
+        }
+
+        .stats__number .gradient-text {
+            background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stats__desc {
+            font-size: 0.82rem;
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+
+        /* ═══════════════════════════════════════
+           PRODUCTS SECTION
+        ═══════════════════════════════════════ */
+        .products {
+            padding-top: 160px;
+        }
+
+        .product-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-top: 80px;
+            padding: 48px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at top left, var(--color-primary-glow), transparent 60%);
+            opacity: 0;
+            transition: var(--transition-base);
+        }
+
+        .product-card:hover::before { opacity: 1; }
+
+        .product-card:hover {
+            border-color: var(--color-border-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .product-card--reverse {
+            direction: rtl;
+        }
+
+        .product-card--reverse > * {
+            direction: ltr;
+        }
+
+        /* Full-width product card with tabs */
+        .product-card--full {
+            display: flex;
+            flex-direction: column;
+            margin-top: 80px;
+            padding: 48px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card--full::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at top left, var(--color-primary-glow), transparent 60%);
+            opacity: 0;
+            transition: var(--transition-base);
+        }
+
+        .product-card--full:hover::before { opacity: 1; }
+
+        .product-card--full:hover {
+            border-color: var(--color-border-hover);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .product-card--full__header {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            margin-bottom: 32px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-card__features--horizontal {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px !important;
+            flex-shrink: 0;
+            min-width: 320px;
+        }
+
+        .product-tabs {
+            display: flex;
+            gap: 4px;
+            padding: 4px;
+            background: var(--color-bg);
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            width: fit-content;
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-tab {
+            padding: 10px 22px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-display);
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+
+        .product-tab:hover {
+            color: var(--color-text-secondary);
+        }
+
+        .product-tab.active {
+            background: var(--color-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .product-screenshots {
+            position: relative;
+            z-index: 1;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+        }
+
+        .product-screenshot {
+            display: none;
+        }
+
+        .product-screenshot.active {
+            display: block;
+        }
+
+        .product-screenshot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Mobile app screenshots - displayed centered with max height */
+        .product-screenshots--mobile {
+            background: var(--color-surface);
+            display: flex;
+            justify-content: center;
+            min-height: 500px;
+        }
+
+        .product-screenshots--mobile .product-screenshot {
+            display: none;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .product-screenshots--mobile .product-screenshot.active {
+            display: flex;
+        }
+
+        .product-screenshots--mobile .product-screenshot img {
+            width: auto;
+            max-height: 600px;
+            border-radius: var(--radius-md);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+        }
+
+        .product-card__tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 14px;
+            background: var(--color-accent-glow);
+            border: 1px solid rgba(0, 212, 170, 0.2);
+            border-radius: 100px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+        }
+
+        .product-card__tag--coming {
+            background: rgba(255, 107, 107, 0.1);
+            border-color: rgba(255, 107, 107, 0.2);
+            color: var(--color-warning);
+        }
+
+        .product-card__title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 16px;
+        }
+
+        .product-card__desc {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .product-card__features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .product-card__features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.88rem;
+            color: var(--color-text-secondary);
+        }
+
+        .product-card__features .check {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            background: var(--color-accent-glow);
+            border: 1px solid rgba(0, 212, 170, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--color-accent);
+            font-size: 0.7rem;
+        }
+
+        /* Product mockup / screenshot placeholder */
+        .product-card__visual {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            aspect-ratio: 16/10;
+        }
+
+        .product-card__visual-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mockup-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 12px 16px;
+            background: var(--color-bg-elevated);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .mockup-bar__dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .mockup-bar__url {
+            flex: 1;
+            margin-left: 12px;
+            padding: 4px 12px;
+            background: var(--color-bg);
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--color-text-muted);
+        }
+
+        .mockup-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Ticket system mockup */
+        .ticket-mockup__header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ticket-mockup__title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .ticket-mockup__badge {
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+        }
+
+        .ticket-mockup__badge--open {
+            background: rgba(0, 212, 170, 0.15);
+            color: var(--color-accent);
+        }
+
+        .ticket-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--color-bg);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+            transition: var(--transition-base);
+        }
+
+        .ticket-row:hover {
+            border-color: var(--color-border-hover);
+        }
+
+        .ticket-row__priority {
+            width: 4px;
+            height: 28px;
+            border-radius: 2px;
+        }
+
+        .ticket-row__priority--high { background: var(--color-warning); }
+        .ticket-row__priority--medium { background: #FFB84D; }
+        .ticket-row__priority--low { background: var(--color-accent); }
+
+        .ticket-row__info {
+            flex: 1;
+        }
+
+        .ticket-row__name {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .ticket-row__meta {
+            font-size: 0.6rem;
+            color: var(--color-text-muted);
+            font-family: var(--font-mono);
+        }
+
+        .ticket-row__status {
+            font-size: 0.55rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+        }
+
+        .ticket-row__status--progress { background: rgba(108, 99, 255, 0.15); color: var(--color-primary-light); }
+        .ticket-row__status--new { background: rgba(0, 212, 170, 0.15); color: var(--color-accent); }
+        .ticket-row__status--waiting { background: rgba(255, 184, 77, 0.15); color: #FFB84D; }
+
+        /* Klikphone mockup */
+        .phone-mockup {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .phone-card {
+            padding: 12px;
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            transition: var(--transition-base);
+        }
+
+        .phone-card:hover { border-color: var(--color-border-hover); }
+
+        .phone-card__icon {
+            font-size: 1.6rem;
+            margin-bottom: 6px;
+        }
+
+        .phone-card__name {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 2px;
+        }
+
+        .phone-card__price {
+            font-size: 0.6rem;
+            color: var(--color-accent);
+            font-family: var(--font-mono);
+            font-weight: 600;
+        }
+
+        /* Teaser card */
+        .teaser-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: radial-gradient(ellipse at center, var(--color-primary-glow), transparent 70%);
+        }
+
+        .teaser-visual__icon {
+            font-size: 5rem;
+            animation: float 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 40px rgba(108, 99, 255, 0.3));
+        }
+
+        .teaser-visual__ring {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            animation: spinSlow 20s linear infinite;
+        }
+
+        .teaser-visual__ring:nth-child(2) {
+            width: 280px;
+            height: 280px;
+            border-style: dashed;
+            animation-direction: reverse;
+            animation-duration: 30s;
+        }
+
+        /* ═══════════════════════════════════════
+           SCREENSHOT PLACEHOLDER
+        ═══════════════════════════════════════ */
+        .screenshot-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            gap: 12px;
+            color: var(--color-text-muted);
+            font-size: 0.8rem;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .screenshot-placeholder__icon {
+            font-size: 2.5rem;
+            opacity: 0.5;
+        }
+
+        .screenshot-placeholder__text {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+        }
+
+        /* ═══════════════════════════════════════
+           ABOUT SECTION
+        ═══════════════════════════════════════ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 1024px) {
+            .about-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .about-card {
+            padding: 36px 28px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            transition: var(--transition-base);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            opacity: 0;
+            transition: var(--transition-base);
+        }
+
+        .about-card:hover {
+            border-color: var(--color-border-hover);
+            transform: translateY(-4px);
+        }
+
+        .about-card:hover::before { opacity: 1; }
+
+        .about-card__icon {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-md);
+            background: var(--color-primary-glow);
+            border: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+
+        .about-card__title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .about-card__desc {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ═══════════════════════════════════════
+           CONTACT SECTION
+        ═══════════════════════════════════════ */
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            margin-top: 60px;
+            align-items: start;
+        }
+
+        .contact-info__title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .contact-info__text {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            line-height: 1.8;
+            margin-bottom: 36px;
+        }
+
+        .contact-info__items {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-info__item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .contact-info__item-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            background: var(--color-primary-glow);
+            border: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-info__item-text {
+            font-size: 0.9rem;
+            color: var(--color-text-secondary);
+        }
+
+        .contact-info__item-label {
+            font-size: 0.7rem;
+            font-family: var(--font-mono);
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .contact-form {
+            padding: 40px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+        }
+
+        .contact-form__group {
+            margin-bottom: 20px;
+        }
+
+        .contact-form__label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .contact-form__input,
+        .contact-form__textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            color: var(--color-text);
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            transition: var(--transition-base);
+            outline: none;
+        }
+
+        .contact-form__input:focus,
+        .contact-form__textarea:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-glow);
+        }
+
+        .contact-form__textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .contact-form__row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .contact-form .btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 8px;
+        }
+
+        /* ═══════════════════════════════════════
+           FOOTER
+        ═══════════════════════════════════════ */
+        .footer {
+            position: relative;
+            z-index: 1;
+            margin-top: 80px;
+            padding: 40px;
+            border-top: 1px solid var(--color-border);
+            text-align: center;
+        }
+
+        .footer__text {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .footer__text span { color: var(--color-primary-light); font-weight: 600; }
+
+        /* ═══════════════════════════════════════
+           ANIMATIONS
+        ═══════════════════════════════════════ */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translate(40px, -50%); }
+            to { opacity: 1; transform: translate(0, -50%); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ═══════════════════════════════════════
+           RESPONSIVE
+        ═══════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .hero__code { display: none; }
+            .product-card { grid-template-columns: 1fr; }
+            .product-card--reverse { direction: ltr; }
+            .contact-wrapper { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .section { padding: 80px 20px; }
+            .navbar { padding: 14px 20px; }
+            .navbar__links { display: none; }
+            .navbar__toggle { display: block; }
+            .stats { 
+                grid-template-columns: 1fr 1fr;
+                margin: -40px 20px 0;
+            }
+            .product-card { padding: 24px; gap: 32px; }
+            .contact-form__row { grid-template-columns: 1fr; }
+            .hero__actions { flex-direction: column; }
+            .hero__actions .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Background effects -->
+    <div class="bg-grid"></div>
+    <div class="bg-gradient-orb bg-gradient-orb--1"></div>
+    <div class="bg-gradient-orb bg-gradient-orb--2"></div>
+
+    <!-- ═══ NAVBAR ═══ -->
+    <nav class="navbar">
+        <div class="navbar__logo">
+            <span>Klik</span><span>&</span><span>Dev</span>
+        </div>
+        <ul class="navbar__links">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#produits">Produits</a></li>
+            <li><a href="#apropos">À propos</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="navbar__cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Discutons →</button>
+        <button class="navbar__toggle" onclick="this.classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="section hero" id="accueil">
+        <div class="hero__content">
+            <div class="hero__badge">
+                <span class="dot"></span>
+                Nouveau projet en cours de développement
+            </div>
+            <h1 class="hero__title">
+                Des logiciels qui<br>
+                <span class="gradient-text">simplifient la vie</span><br>
+                des entreprises.
+            </h1>
+            <p class="hero__description">
+                Klik&Dev conçoit des solutions logicielles sur mesure pour les entreprises. 
+                Une équipe de développeurs, designers UI/UX et spécialistes IA qui 
+                transforme vos processus en outils performants et intuitifs.
+            </p>
+            <div class="hero__actions">
+                <a href="#produits" class="btn btn--primary">
+                    Découvrir nos solutions
+                    <span class="btn__arrow">→</span>
+                </a>
+                <a href="#contact" class="btn btn--ghost">
+                    Nous contacter
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative code block -->
+        <div class="hero__code">
+            <div class="hero__code-header">
+                <div class="hero__code-dot hero__code-dot--red"></div>
+                <div class="hero__code-dot hero__code-dot--yellow"></div>
+                <div class="hero__code-dot hero__code-dot--green"></div>
+            </div>
+            <div class="hero__code-body">
+                <span class="comment">// klikdev.config.ts</span><br>
+                <span class="keyword">const</span> <span class="function">solution</span> = <span class="bracket">{</span><br>
+                &nbsp;&nbsp;client: <span class="string">"votre-entreprise"</span>,<br>
+                &nbsp;&nbsp;type: <span class="string">"sur-mesure"</span>,<br>
+                &nbsp;&nbsp;stack: [<span class="string">"moderne"</span>, <span class="string">"scalable"</span>],<br>
+                &nbsp;&nbsp;support: <span class="keyword">true</span>,<br>
+                &nbsp;&nbsp;innovation: <span class="string">"∞"</span><br>
+                <span class="bracket">}</span>;<br><br>
+                <span class="function">klikdev</span>.<span class="function">deploy</span>(solution);<br>
+                <span class="comment">// ✓ En production</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ STATS ═══ -->
+    <div class="stats">
+        <div class="stats__item">
+            <div class="stats__number"><span class="gradient-text">6-7</span></div>
+            <div class="stats__desc">Experts dans l'équipe</div>
+        </div>
+        <div class="stats__item">
+            <div class="stats__number"><span class="gradient-text">100%</span></div>
+            <div class="stats__desc">Solutions sur mesure</div>
+        </div>
+        <div class="stats__item">
+            <div class="stats__number"><span class="gradient-text">24/7</span></div>
+            <div class="stats__desc">Support & maintenance</div>
+        </div>
+        <div class="stats__item">
+            <div class="stats__number"><span class="gradient-text">3</span></div>
+            <div class="stats__desc">Produits en production & à venir</div>
+        </div>
+    </div>
+
+    <!-- ═══ PRODUCTS ═══ -->
+    <section class="section products" id="produits">
+        <div class="section__label">Nos solutions</div>
+        <h2 class="section__title">Des outils pensés pour<br><span class="gradient-text">votre productivité</span></h2>
+        <p class="section__subtitle">
+            Chaque solution est conçue en étroite collaboration avec nos clients pour 
+            répondre exactement à leurs besoins métier.
+        </p>
+
+        <!-- PRODUCT 1: Système SAV complet -->
+        <div class="product-card product-card--full reveal">
+            <div class="product-card--full__header">
+                <div>
+                    <div class="product-card__tag">✦ En production</div>
+                    <h3 class="product-card__title">Système de Gestion SAV & Suivi Client</h3>
+                    <p class="product-card__desc">
+                        Une application complète développée pour KlikPhone : gestion de tickets, 
+                        suivi client en temps réel, reporting avancé. Conçue pour optimiser chaque 
+                        étape du parcours de réparation.
+                    </p>
+                </div>
+                <ul class="product-card__features product-card__features--horizontal">
+                    <li><span class="check">✓</span> Dashboard temps réel</li>
+                    <li><span class="check">✓</span> Suivi client complet</li>
+                    <li><span class="check">✓</span> Gestion des tickets SAV</li>
+                    <li><span class="check">✓</span> Reporting & analyses</li>
+                    <li><span class="check">✓</span> Suivi de réparation client</li>
+                    <li><span class="check">✓</span> Stock pièces détachées</li>
+                </ul>
+            </div>
+            <div class="product-tabs">
+                <button class="product-tab active" onclick="switchTab('sav', 0)">📊 Dashboard</button>
+                <button class="product-tab" onclick="switchTab('sav', 1)">🎫 Tickets</button>
+                <button class="product-tab" onclick="switchTab('sav', 2)">🔍 Suivi réparation</button>
+                <button class="product-tab" onclick="switchTab('sav', 3)">📈 Reporting</button>
+                <button class="product-tab" onclick="switchTab('sav', 4)">📊 Analyses</button>
+            </div>
+            <div class="product-screenshots" id="sav-screenshots">
+                <div class="product-screenshot active">
+                    <img src="dashboard.png" alt="Dashboard SAV" />
+                </div>
+                <div class="product-screenshot">
+                    <img src="tickets-list.png" alt="Liste des tickets" />
+                </div>
+                <div class="product-screenshot">
+                    <img src="suivi-client.png" alt="Suivi réparation client" />
+                </div>
+                <div class="product-screenshot">
+                    <img src="reporting.png" alt="Reporting" />
+                </div>
+                <div class="product-screenshot">
+                    <img src="reporting-analyses.png" alt="Analyses" />
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCT 2: Klikphone App -->
+        <div class="product-card product-card--full reveal">
+            <div class="product-card--full__header">
+                <div>
+                    <div class="product-card__tag">✦ En production</div>
+                    <h3 class="product-card__title">Klikphone — Application Client</h3>
+                    <p class="product-card__desc">
+                        L'application client de KlikPhone, spécialiste Apple & multimarque à Chambéry. 
+                        Dépôt d'appareil, suivi de réparation en temps réel, et confirmation 
+                        instantanée — tout en quelques clics.
+                    </p>
+                </div>
+                <ul class="product-card__features product-card__features--horizontal">
+                    <li><span class="check">✓</span> Dépôt d'appareil en boutique</li>
+                    <li><span class="check">✓</span> Pré-enregistrement à distance</li>
+                    <li><span class="check">✓</span> Suivi de réparation par ticket</li>
+                    <li><span class="check">✓</span> Confirmation et numéro de suivi</li>
+                </ul>
+            </div>
+            <div class="product-tabs">
+                <button class="product-tab active" onclick="switchTab('klik', 0)">🏠 Accueil</button>
+                <button class="product-tab" onclick="switchTab('klik', 1)">✅ Confirmation</button>
+            </div>
+            <div class="product-screenshots product-screenshots--mobile" id="klik-screenshots">
+                <div class="product-screenshot active">
+                    <img src="homepage.png" alt="Page d'accueil Klikphone" />
+                </div>
+                <div class="product-screenshot">
+                    <img src="depot-confirmation.png" alt="Confirmation de dépôt" />
+                </div>
+            </div>
+        </div>
+
+        <!-- PRODUCT 3: Teaser - Klik&Go -->
+        <div class="product-card reveal">
+            <div>
+                <div class="product-card__tag product-card__tag--coming">🔥 Coming soon</div>
+                <h3 class="product-card__title">Fini l'attente.<br><span class="gradient-text">Simplifiez tout.</span></h3>
+                <p class="product-card__desc">
+                    Un outil conçu pour éliminer les files d'attente et simplifier la vie 
+                    de vos clients comme de vos équipes. Plus d'attente inutile, plus de 
+                    frustration — juste une expérience fluide et moderne.
+                </p>
+                <ul class="product-card__features">
+                    <li><span class="check" style="background: rgba(255, 107, 107, 0.1); border-color: rgba(255, 107, 107, 0.2); color: var(--color-warning);">?</span> Réduction drastique des temps d'attente</li>
+                    <li><span class="check" style="background: rgba(255, 107, 107, 0.1); border-color: rgba(255, 107, 107, 0.2); color: var(--color-warning);">?</span> Parcours client simplifié</li>
+                    <li><span class="check" style="background: rgba(255, 107, 107, 0.1); border-color: rgba(255, 107, 107, 0.2); color: var(--color-warning);">?</span> Adapté à tous les commerces</li>
+                    <li><span class="check" style="background: rgba(255, 107, 107, 0.1); border-color: rgba(255, 107, 107, 0.2); color: var(--color-warning);">?</span> Plus de détails très bientôt…</li>
+                </ul>
+            </div>
+            <div class="product-card__visual">
+                <div class="product-card__visual-inner" style="position: relative;">
+                    <div class="teaser-visual">
+                        <div class="teaser-visual__ring"></div>
+                        <div class="teaser-visual__ring"></div>
+                        <div class="teaser-visual__icon">🚀</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section class="section" id="apropos">
+        <div class="section__label">À propos</div>
+        <h2 class="section__title">Une équipe, <span class="gradient-text">toutes les compétences</span></h2>
+        <p class="section__subtitle">
+            Développeurs, designers UI/UX, spécialistes IA — nous réunissons 
+            les talents nécessaires pour transformer vos idées en produits concrets.
+        </p>
+
+        <div class="about-grid">
+            <div class="about-card reveal">
+                <div class="about-card__icon">👨‍💻</div>
+                <h3 class="about-card__title">Développement Full-Stack</h3>
+                <p class="about-card__desc">
+                    Des développeurs expérimentés qui maîtrisent les technologies modernes : 
+                    applications web, mobile, API, bases de données. Du front au back, on gère tout.
+                </p>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-card__icon">🎨</div>
+                <h3 class="about-card__title">Design UI/UX</h3>
+                <p class="about-card__desc">
+                    Des spécialistes de l'expérience utilisateur qui conçoivent des interfaces 
+                    intuitives et élégantes. Chaque pixel est pensé pour vos utilisateurs.
+                </p>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-card__icon">🤖</div>
+                <h3 class="about-card__title">Intelligence Artificielle</h3>
+                <p class="about-card__desc">
+                    Nous intégrons l'IA au cœur de nos solutions : agents intelligents, 
+                    automatisation, analyse de données. La tech de demain, déployée aujourd'hui.
+                </p>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-card__icon">⚡</div>
+                <h3 class="about-card__title">Sur mesure uniquement</h3>
+                <p class="about-card__desc">
+                    Pas de solution générique. Chaque logiciel est développé 
+                    spécifiquement pour répondre à vos besoins métier.
+                </p>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-card__icon">🛡️</div>
+                <h3 class="about-card__title">Fiabilité & performance</h3>
+                <p class="about-card__desc">
+                    Des technologies robustes et une architecture pensée pour scaler. 
+                    Vos applications tiennent la charge et évoluent avec vous.
+                </p>
+            </div>
+            <div class="about-card reveal">
+                <div class="about-card__icon">🤝</div>
+                <h3 class="about-card__title">Accompagnement total</h3>
+                <p class="about-card__desc">
+                    De l'idée au déploiement, et bien après. 
+                    Maintenance, évolutions, support — on ne vous lâche pas.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CONTACT ═══ -->
+    <section class="section" id="contact">
+        <div class="section__label">Contact</div>
+        <h2 class="section__title">Un projet en tête ?<br><span class="gradient-text">Parlons-en.</span></h2>
+
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h3 class="contact-info__title">Prenons un café ☕</h3>
+                <p class="contact-info__text">
+                    Que vous ayez une idée précise ou juste un besoin à résoudre, 
+                    on est là pour en discuter. Pas de jargon, pas de blabla — 
+                    juste des solutions concrètes.
+                </p>
+                <div class="contact-info__items">
+                    <div class="contact-info__item">
+                        <div class="contact-info__item-icon">📧</div>
+                        <div>
+                            <div class="contact-info__item-label">Email</div>
+                            <div class="contact-info__item-text">contact@klikdev.fr</div>
+                        </div>
+                    </div>
+                    <div class="contact-info__item">
+                        <div class="contact-info__item-icon">📍</div>
+                        <div>
+                            <div class="contact-info__item-label">Localisation</div>
+                            <div class="contact-info__item-text">France</div>
+                        </div>
+                    </div>
+                    <div class="contact-info__item">
+                        <div class="contact-info__item-icon">⏱️</div>
+                        <div>
+                            <div class="contact-info__item-label">Réponse</div>
+                            <div class="contact-info__item-text">Sous 24 heures</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Message envoyé ! (démo)')">
+                <div class="contact-form__row">
+                    <div class="contact-form__group">
+                        <label class="contact-form__label">Prénom</label>
+                        <input type="text" class="contact-form__input" placeholder="Jean">
+                    </div>
+                    <div class="contact-form__group">
+                        <label class="contact-form__label">Nom</label>
+                        <input type="text" class="contact-form__input" placeholder="Dupont">
+                    </div>
+                </div>
+                <div class="contact-form__group">
+                    <label class="contact-form__label">Email</label>
+                    <input type="email" class="contact-form__input" placeholder="jean@entreprise.fr">
+                </div>
+                <div class="contact-form__group">
+                    <label class="contact-form__label">Entreprise</label>
+                    <input type="text" class="contact-form__input" placeholder="Nom de votre société">
+                </div>
+                <div class="contact-form__group">
+                    <label class="contact-form__label">Votre message</label>
+                    <textarea class="contact-form__textarea" placeholder="Décrivez votre projet ou votre besoin..."></textarea>
+                </div>
+                <button type="submit" class="btn btn--primary">
+                    Envoyer le message
+                    <span class="btn__arrow">→</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer class="footer">
+        <p class="footer__text">
+            © 2025 <span>Klik&Dev</span> — Développement logiciel sur mesure. Tous droits réservés.
+        </p>
+    </footer>
+
+    <!-- ═══ SCROLL REVEAL SCRIPT ═══ -->
+    <script>
+        // Tab switching for product screenshots
+        function switchTab(group, index) {
+            const container = document.getElementById(group + '-screenshots');
+            if (!container) return;
+            // Find the parent card to scope tab buttons
+            const card = container.closest('.product-card--full');
+            card.querySelectorAll('.product-tab').forEach((tab, i) => {
+                tab.classList.toggle('active', i === index);
+            });
+            container.querySelectorAll('.product-screenshot').forEach((shot, i) => {
+                shot.classList.toggle('active', i === index);
+            });
+        }
+
+        // Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -60px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('.navbar__links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                target?.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(6, 9, 15, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(6, 9, 15, 0.8)';
+            }
+        });
+    </script>
+
+</body>
+</html>
