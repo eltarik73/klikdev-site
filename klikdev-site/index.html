@@ -856,6 +856,237 @@
         }
 
         /* Teaser card */
+        /* ═══ COMING SOON SECTION ═══ */
+        .coming-soon {
+            position: relative;
+            margin-top: 80px;
+            padding: 80px 48px;
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .coming-soon__glow {
+            position: absolute;
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(108, 99, 255, 0.15), transparent 70%);
+            pointer-events: none;
+            animation: comingGlow 6s ease-in-out infinite;
+        }
+
+        .coming-soon__glow--2 {
+            top: auto;
+            bottom: -300px;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.1), transparent 70%);
+            animation-delay: 3s;
+        }
+
+        @keyframes comingGlow {
+            0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.2); }
+        }
+
+        .coming-soon__badge {
+            display: inline-block;
+            padding: 6px 20px;
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid rgba(255, 107, 107, 0.2);
+            border-radius: 100px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--color-warning);
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .coming-soon__icon {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            z-index: 1;
+        }
+
+        .coming-soon__ring {
+            position: absolute;
+            inset: 0;
+            border: 2px solid var(--color-primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: ringPulse 3s ease-in-out infinite;
+        }
+
+        .coming-soon__ring--2 {
+            inset: -15px;
+            border-color: var(--color-accent);
+            opacity: 0.2;
+            animation-delay: 1s;
+        }
+
+        .coming-soon__ring--3 {
+            inset: -30px;
+            border-color: var(--color-warning);
+            opacity: 0.1;
+            animation-delay: 2s;
+        }
+
+        @keyframes ringPulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.15); opacity: 0.6; }
+        }
+
+        .coming-soon__title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .coming-soon__desc {
+            font-size: 1.05rem;
+            color: var(--color-text-secondary);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto 48px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .coming-soon__hints {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto 56px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .coming-soon__hint {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 16px;
+            background: var(--color-bg-elevated);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: 0.82rem;
+            color: var(--color-text-secondary);
+            transition: var(--transition-base);
+        }
+
+        .coming-soon__hint:hover {
+            border-color: var(--color-border-hover);
+            color: var(--color-text);
+        }
+
+        .coming-soon__hint-icon { font-size: 1.5rem; }
+
+        .coming-soon__cta { position: relative; z-index: 1; }
+
+        .coming-soon__cta-text {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 20px;
+        }
+
+        .coming-soon__form {
+            display: flex;
+            gap: 8px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .coming-soon__input {
+            flex: 1;
+            padding: 14px 20px;
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            color: var(--color-text);
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            outline: none;
+            transition: var(--transition-base);
+        }
+
+        .coming-soon__input:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-primary-glow);
+        }
+
+        .coming-soon__input::placeholder { color: var(--color-text-muted); }
+
+        .coming-soon__btn {
+            padding: 14px 28px;
+            background: var(--color-primary);
+            border: none;
+            border-radius: var(--radius-md);
+            color: white;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-base);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .coming-soon__btn:hover {
+            background: var(--color-primary-light);
+            transform: translateY(-1px);
+        }
+
+        .coming-soon__btn-arrow { transition: transform 0.3s; }
+        .coming-soon__btn:hover .coming-soon__btn-arrow { transform: translateX(4px); }
+
+        .coming-soon__form-note {
+            font-size: 0.72rem;
+            color: var(--color-text-muted);
+            margin-top: 12px;
+        }
+
+        .coming-soon__success {
+            padding: 16px 24px;
+            background: var(--color-accent-glow);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            border-radius: var(--radius-md);
+            color: var(--color-accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            max-width: 480px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .coming-soon { padding: 60px 24px; }
+            .coming-soon__hints { grid-template-columns: repeat(2, 1fr); }
+            .coming-soon__form { flex-direction: column; }
+            .coming-soon__btn { justify-content: center; }
+        }
+
         .teaser-visual {
             display: flex;
             align-items: center;
@@ -1369,30 +1600,62 @@
             </div>
         </div>
 
-        <!-- PRODUCT 3: Teaser - Klik&Go -->
-        <div class="product-card reveal">
-            <div>
-                <div class="product-card__tag product-card__tag--coming">🔥 Coming soon</div>
-                <h3 class="product-card__title">Fini l'attente.<br><span class="gradient-text">Simplifiez tout.</span></h3>
-                <p class="product-card__desc">
-                    Un outil conçu pour éliminer les files d'attente et simplifier la vie 
-                    de vos clients comme de vos équipes. Plus d'attente inutile, plus de 
-                    frustration — juste une expérience fluide et moderne.
-                </p>
-                <ul class="product-card__features">
-                    <li><span class="check" style="background: rgba(255, 107, 107, 0.1); border-color: rgba(255, 107, 107, 0.2); color: var(--color-warning);">?</span> Réduction drastique des temps d'attente</li>
-                    <li><span class="check" style="background: rgba(255, 107, 107, 0.1); border-color: rgba(255, 107, 107, 0.2); color: var(--color-warning);">?</span> Parcours client simplifié</li>
-                    <li><span class="check" style="background: rgba(255, 107, 107, 0.1); border-color: rgba(255, 107, 107, 0.2); color: var(--color-warning);">?</span> Adapté à tous les commerces</li>
-                    <li><span class="check" style="background: rgba(255, 107, 107, 0.1); border-color: rgba(255, 107, 107, 0.2); color: var(--color-warning);">?</span> Plus de détails très bientôt…</li>
-                </ul>
+        <!-- PRODUCT 3: Coming Soon - Full Landing -->
+        <div class="coming-soon reveal">
+            <div class="coming-soon__glow"></div>
+            <div class="coming-soon__glow coming-soon__glow--2"></div>
+            
+            <div class="coming-soon__badge">🔥 Coming soon</div>
+            
+            <div class="coming-soon__icon">
+                <div class="coming-soon__ring"></div>
+                <div class="coming-soon__ring coming-soon__ring--2"></div>
+                <div class="coming-soon__ring coming-soon__ring--3"></div>
+                <span>⏱️</span>
             </div>
-            <div class="product-card__visual">
-                <div class="product-card__visual-inner" style="position: relative;">
-                    <div class="teaser-visual">
-                        <div class="teaser-visual__ring"></div>
-                        <div class="teaser-visual__ring"></div>
-                        <div class="teaser-visual__icon">🚀</div>
-                    </div>
+
+            <h3 class="coming-soon__title">
+                Et si vous n'aviez<br>
+                <span class="gradient-text">plus jamais à attendre ?</span>
+            </h3>
+            
+            <p class="coming-soon__desc">
+                Nous développons un outil qui va transformer le quotidien des commerces 
+                et de leurs clients. Fini les files d'attente, fini la frustration — 
+                une expérience repensée de A à Z.
+            </p>
+
+            <div class="coming-soon__hints">
+                <div class="coming-soon__hint">
+                    <span class="coming-soon__hint-icon">⏳</span>
+                    <span>Réduction drastique des temps d'attente</span>
+                </div>
+                <div class="coming-soon__hint">
+                    <span class="coming-soon__hint-icon">🏪</span>
+                    <span>Conçu pour les commerces locaux</span>
+                </div>
+                <div class="coming-soon__hint">
+                    <span class="coming-soon__hint-icon">📱</span>
+                    <span>Simple, rapide, moderne</span>
+                </div>
+                <div class="coming-soon__hint">
+                    <span class="coming-soon__hint-icon">🚀</span>
+                    <span>Lancement imminent</span>
+                </div>
+            </div>
+
+            <div class="coming-soon__cta">
+                <p class="coming-soon__cta-text">Soyez les premiers informés du lancement</p>
+                <div class="coming-soon__form" id="comingSoonForm">
+                    <input type="email" class="coming-soon__input" placeholder="votre@email.com" id="comingSoonEmail" />
+                    <button class="coming-soon__btn" onclick="handleComingSoon()">
+                        Me notifier
+                        <span class="coming-soon__btn-arrow">→</span>
+                    </button>
+                </div>
+                <p class="coming-soon__form-note">Pas de spam. Juste une notification le jour J.</p>
+                <div class="coming-soon__success" id="comingSoonSuccess" style="display:none;">
+                    <span>✅</span> Merci ! Vous serez parmi les premiers à découvrir ce projet.
                 </div>
             </div>
         </div>
@@ -1537,6 +1800,36 @@
 
     <!-- ═══ SCROLL REVEAL SCRIPT ═══ -->
     <script>
+        // Coming soon email form
+        function handleComingSoon() {
+            const email = document.getElementById('comingSoonEmail').value;
+            if (!email || !email.includes('@')) {
+                document.getElementById('comingSoonEmail').style.borderColor = '#FF6B6B';
+                return;
+            }
+            document.getElementById('comingSoonForm').style.display = 'none';
+            document.querySelector('.coming-soon__form-note').style.display = 'none';
+            document.getElementById('comingSoonSuccess').style.display = 'flex';
+            
+            // Store email locally (replace with real backend later)
+            const emails = JSON.parse(localStorage.getItem('klikdev_waitlist') || '[]');
+            emails.push({ email, date: new Date().toISOString() });
+            localStorage.setItem('klikdev_waitlist', JSON.stringify(emails));
+        }
+
+        // Allow Enter key on email input
+        document.addEventListener('DOMContentLoaded', function() {
+            const emailInput = document.getElementById('comingSoonEmail');
+            if (emailInput) {
+                emailInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') handleComingSoon();
+                });
+                emailInput.addEventListener('input', function() {
+                    this.style.borderColor = '';
+                });
+            }
+        });
+
         // Tab switching for product screenshots
         function switchTab(group, index) {
             const container = document.getElementById(group + '-screenshots');
