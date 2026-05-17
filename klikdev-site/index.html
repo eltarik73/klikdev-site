@@ -3,1880 +3,2224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Klik&Dev — Développement Logiciel Sur Mesure</title>
+    <meta name="description" content="Klik&Dev — Studio indépendant qui conçoit et déploie des SaaS web et services pour les pros. Cinq produits en production : Klik&Go, Bativio, Invoquo, Klikphone SAV, MonPCMI13.">
+    <meta name="theme-color" content="#06090F">
+    <title>Klik&Dev — Cinq produits, une obsession.</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        /* ═══════════════════════════════════════
-           DESIGN TOKENS
-        ═══════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════════════════
+           DESIGN TOKENS — APEX-flavored dark premium
+        ═══════════════════════════════════════════════════════════ */
         :root {
-            --color-bg: #06090F;
-            --color-bg-card: #0D1117;
-            --color-bg-elevated: #161B22;
-            --color-surface: #1C2333;
-            --color-border: rgba(99, 130, 255, 0.12);
-            --color-border-hover: rgba(99, 130, 255, 0.3);
+            /* Surface */
+            --bg: #06090F;
+            --bg-card: #0D1117;
+            --bg-elevated: #11151D;
+            --bg-deep: #03050A;
+            --surface-1: rgba(255, 255, 255, 0.02);
+            --surface-2: rgba(255, 255, 255, 0.04);
+            --surface-hover: rgba(255, 255, 255, 0.06);
 
-            --color-primary: #6C63FF;
-            --color-primary-light: #8B83FF;
-            --color-primary-glow: rgba(108, 99, 255, 0.15);
-            --color-accent: #00D4AA;
-            --color-accent-glow: rgba(0, 212, 170, 0.12);
-            --color-warning: #FF6B6B;
+            /* Border */
+            --border: rgba(140, 150, 200, 0.10);
+            --border-hover: rgba(140, 150, 200, 0.22);
+            --border-glow: rgba(108, 99, 255, 0.35);
 
-            --color-text: #E6EDF3;
-            --color-text-secondary: #8B949E;
-            --color-text-muted: #5C6370;
+            /* Brand */
+            --primary: #6C63FF;
+            --primary-light: #8B83FF;
+            --primary-deep: #4F45D9;
+            --primary-glow: rgba(108, 99, 255, 0.20);
 
-            --font-display: 'Sora', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
+            --accent: #00D4AA;
+            --accent-light: #4DE5C4;
+            --accent-glow: rgba(0, 212, 170, 0.18);
 
-            --radius-sm: 8px;
-            --radius-md: 12px;
-            --radius-lg: 20px;
-            --radius-xl: 28px;
+            --warm: #FF8551;
+            --rose: #FF6B9D;
 
-            --shadow-glow: 0 0 60px rgba(108, 99, 255, 0.08);
-            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3);
+            /* Text */
+            --text: #ECEFF4;
+            --text-soft: #C5CCD8;
+            --text-secondary: #8892A6;
+            --text-muted: #5C6478;
+            --text-dim: #3D4458;
 
-            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            /* Type */
+            --sans: 'Inter', system-ui, -apple-system, sans-serif;
+            --serif: 'Instrument Serif', 'Times New Roman', serif;
+            --mono: 'JetBrains Mono', ui-monospace, monospace;
+
+            /* Radius */
+            --r-sm: 10px;
+            --r-md: 16px;
+            --r-lg: 24px;
+            --r-xl: 32px;
+            --r-2xl: 48px;
+            --r-pill: 999px;
+
+            /* Shadow */
+            --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-glow: 0 0 80px rgba(108, 99, 255, 0.12);
+            --shadow-accent-glow: 0 0 80px rgba(0, 212, 170, 0.10);
+
+            /* Motion */
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+            --ease-snap: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --t-fast: 0.25s var(--ease-out);
+            --t-base: 0.45s var(--ease-out);
+            --t-slow: 0.7s var(--ease-out);
+
+            /* Layout */
+            --container: 1240px;
+            --gutter: clamp(20px, 4vw, 48px);
         }
 
-        /* ═══════════════════════════════════════
-           RESET & BASE
-        ═══════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════════════════
+           RESET
+        ═══════════════════════════════════════════════════════════ */
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        html { scroll-behavior: smooth; }
-
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
         body {
-            font-family: var(--font-display);
-            background: var(--color-bg);
-            color: var(--color-text);
-            line-height: 1.7;
+            font-family: var(--sans);
+            font-feature-settings: "ss01", "cv11", "kern";
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-
         a { color: inherit; text-decoration: none; }
+        button { font: inherit; cursor: pointer; border: 0; background: transparent; color: inherit; }
+        img, svg { display: block; max-width: 100%; }
+        em, i { font-style: normal; }
+        ::selection { background: var(--primary); color: #fff; }
 
-        /* ═══════════════════════════════════════
-           BACKGROUND EFFECTS
-        ═══════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════════════════
+           BACKGROUND LAYERS
+        ═══════════════════════════════════════════════════════════ */
         .bg-grid {
             position: fixed;
             inset: 0;
             background-image:
-                linear-gradient(rgba(99, 130, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(99, 130, 255, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
+                linear-gradient(rgba(140, 150, 200, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(140, 150, 200, 0.025) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(ellipse 100% 80% at 50% 30%, #000 30%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 30%, #000 30%, transparent 100%);
             pointer-events: none;
             z-index: 0;
         }
 
-        .bg-gradient-orb {
+        .bg-noise {
             position: fixed;
-            width: 800px;
-            height: 800px;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1;
+            mix-blend-mode: overlay;
+        }
+
+        .orb {
+            position: fixed;
+            width: 720px;
+            height: 720px;
             border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.4;
+            filter: blur(140px);
+            opacity: 0.45;
             pointer-events: none;
             z-index: 0;
+            will-change: transform;
         }
-
-        .bg-gradient-orb--1 {
-            top: -300px;
+        .orb--purple {
+            top: -260px;
+            right: -180px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 65%);
+            animation: orbDrift 22s var(--ease-out) infinite alternate;
+        }
+        .orb--teal {
+            bottom: 10%;
+            left: -260px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 65%);
+            opacity: 0.32;
+            animation: orbDrift 28s var(--ease-out) infinite alternate-reverse;
+        }
+        .orb--rose {
+            top: 55%;
             right: -200px;
-            background: radial-gradient(circle, var(--color-primary) 0%, transparent 70%);
+            width: 540px;
+            height: 540px;
+            background: radial-gradient(circle, var(--rose) 0%, transparent 65%);
+            opacity: 0.18;
+            animation: orbDrift 32s var(--ease-out) infinite alternate;
         }
 
-        .bg-gradient-orb--2 {
-            bottom: 30%;
-            left: -300px;
-            background: radial-gradient(circle, rgba(0, 212, 170, 0.3) 0%, transparent 70%);
+        @keyframes orbDrift {
+            from { transform: translate(0, 0) scale(1); }
+            to   { transform: translate(40px, 60px) scale(1.1); }
         }
 
-        /* ═══════════════════════════════════════
-           NAVBAR
-        ═══════════════════════════════════════ */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 16px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(6, 9, 15, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--color-border);
-            transition: var(--transition-base);
-        }
-
-        .navbar__logo {
-            font-family: var(--font-display);
-            font-size: 1.4rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        .navbar__logo span:first-child { color: var(--color-primary-light); }
-        .navbar__logo span:nth-child(2) { color: var(--color-text-muted); }
-        .navbar__logo span:last-child { color: var(--color-accent); }
-
-        .navbar__links {
-            display: flex;
-            gap: 32px;
-            list-style: none;
-        }
-
-        .navbar__links a {
-            font-size: 0.88rem;
-            font-weight: 500;
-            color: var(--color-text-secondary);
-            transition: var(--transition-base);
+        /* ═══════════════════════════════════════════════════════════
+           LIQUID GLASS (Viktor Oddy signature)
+        ═══════════════════════════════════════════════════════════ */
+        .liquid-glass {
+            background: rgba(255, 255, 255, 0.015);
+            background-blend-mode: luminosity;
+            backdrop-filter: blur(14px) saturate(140%);
+            -webkit-backdrop-filter: blur(14px) saturate(140%);
+            border: none;
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.06),
+                0 1px 0 rgba(255, 255, 255, 0.02);
             position: relative;
+            overflow: hidden;
         }
-
-        .navbar__links a::after {
+        .liquid-glass::before {
             content: '';
             position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--color-primary);
-            transition: var(--transition-base);
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.2px;
+            background: linear-gradient(180deg,
+                rgba(255,255,255,0.18) 0%,
+                rgba(255,255,255,0.04) 20%,
+                rgba(255,255,255,0) 50%,
+                rgba(255,255,255,0.04) 80%,
+                rgba(255,255,255,0.20) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
         }
 
-        .navbar__links a:hover { color: var(--color-text); }
-        .navbar__links a:hover::after { width: 100%; }
-
-        .navbar__cta {
-            padding: 10px 24px;
-            background: var(--color-primary);
-            border: none;
-            border-radius: var(--radius-sm);
-            color: white;
-            font-family: var(--font-display);
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-base);
+        /* ═══════════════════════════════════════════════════════════
+           TYPOGRAPHY
+        ═══════════════════════════════════════════════════════════ */
+        .serif-italic {
+            font-family: var(--sans);
+            font-style: normal;
+            font-weight: 400;
+            letter-spacing: -0.01em;
         }
-
-        .navbar__cta:hover {
-            background: var(--color-primary-light);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 20px rgba(108, 99, 255, 0.4);
-        }
-
-        /* Mobile nav toggle */
-        .navbar__toggle {
-            display: none;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-        }
-        .navbar__toggle span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--color-text);
-            margin: 5px 0;
-            transition: var(--transition-base);
-        }
-
-        /* ═══════════════════════════════════════
-           SECTION COMMON
-        ═══════════════════════════════════════ */
-        .section {
-            position: relative;
-            z-index: 1;
-            padding: 120px 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section__label {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: var(--color-primary-light);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .section__label::before {
-            content: '';
-            display: inline-block;
-            width: 32px;
-            height: 1px;
-            background: var(--color-primary);
-        }
-
-        .section__title {
-            font-size: clamp(2rem, 4vw, 3.2rem);
-            font-weight: 700;
-            letter-spacing: -1px;
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-
-        .section__subtitle {
-            font-size: 1.1rem;
-            color: var(--color-text-secondary);
-            max-width: 600px;
-            line-height: 1.8;
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, var(--color-primary-light) 0%, var(--color-accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* ═══════════════════════════════════════
-           HERO SECTION
-        ═══════════════════════════════════════ */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 100px;
-        }
-
-        .hero__content {
-            max-width: 720px;
-        }
-
-        .hero__badge {
+        .mono { font-family: var(--mono); }
+        .eyebrow {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 16px;
-            background: var(--color-primary-glow);
-            border: 1px solid var(--color-border);
-            border-radius: 100px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--color-primary-light);
-            margin-bottom: 32px;
-            animation: fadeInUp 0.8s ease both;
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
         }
-
-        .hero__badge .dot {
+        .eyebrow::before {
+            content: '';
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: var(--color-accent);
-            animation: pulse 2s infinite;
+            background: var(--accent);
+            box-shadow: 0 0 12px var(--accent);
+            animation: pulse 2.4s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
         }
 
-        .hero__title {
-            font-size: clamp(2.8rem, 6vw, 4.5rem);
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -2px;
-            margin-bottom: 28px;
-            animation: fadeInUp 0.8s ease 0.1s both;
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+            color: var(--text);
         }
 
-        .hero__description {
-            font-size: 1.15rem;
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-            margin-bottom: 48px;
-            max-width: 560px;
-            animation: fadeInUp 0.8s ease 0.2s both;
+        /* ═══════════════════════════════════════════════════════════
+           LAYOUT PRIMITIVES
+        ═══════════════════════════════════════════════════════════ */
+        .container {
+            width: 100%;
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 var(--gutter);
+            position: relative;
         }
 
-        .hero__actions {
+        section {
+            position: relative;
+            z-index: 2;
+            padding: clamp(80px, 12vw, 160px) 0;
+        }
+        section + section { padding-top: 0; }
+
+        .section-header {
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto clamp(48px, 7vw, 96px);
+        }
+        .section-header h2 {
+            font-size: clamp(36px, 5.5vw, 64px);
+            margin-top: 18px;
+        }
+        .section-header p {
+            margin-top: 22px;
+            font-size: clamp(16px, 1.5vw, 19px);
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           NAVBAR
+        ═══════════════════════════════════════════════════════════ */
+        .nav-wrap {
+            position: fixed;
+            top: 18px;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 0 var(--gutter);
+            pointer-events: none;
+        }
+        .nav {
+            pointer-events: auto;
+            max-width: 920px;
+            margin: 0 auto;
+            border-radius: var(--r-pill);
+            padding: 8px 8px 8px 24px;
             display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.3s both;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            transition: padding var(--t-base), background var(--t-base);
+        }
+        .nav.scrolled {
+            background: rgba(13, 17, 23, 0.55);
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: -0.01em;
+        }
+        .nav-brand-mark {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            display: grid;
+            place-items: center;
+            color: #fff;
+            font-weight: 800;
+            font-size: 14px;
+            box-shadow: 0 0 16px rgba(108, 99, 255, 0.4);
+        }
+        .nav-links {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+        .nav-links a {
+            padding: 8px 14px;
+            font-size: 14px;
+            color: var(--text-soft);
+            border-radius: var(--r-pill);
+            transition: all var(--t-fast);
+        }
+        .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+        .nav-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            background: var(--text);
+            color: var(--bg);
+            border-radius: var(--r-pill);
+            font-size: 14px;
+            font-weight: 500;
+            transition: all var(--t-fast);
+        }
+        .nav-cta:hover { transform: scale(1.04); background: #fff; }
+        .nav-burger { display: none; }
+
+        @media (max-width: 820px) {
+            .nav-links { display: none; }
+            .nav-cta { display: none; }
+            .nav-burger {
+                display: grid;
+                place-items: center;
+                width: 40px;
+                height: 40px;
+                border-radius: var(--r-pill);
+                background: rgba(255,255,255,0.06);
+            }
+            .nav-burger span, .nav-burger::before, .nav-burger::after {
+                content: '';
+                display: block;
+                width: 16px;
+                height: 1.5px;
+                background: var(--text);
+                margin: 3px 0;
+                transition: all var(--t-fast);
+            }
+            .nav-menu-mobile {
+                position: fixed;
+                top: 80px;
+                left: 16px;
+                right: 16px;
+                padding: 20px;
+                border-radius: var(--r-lg);
+                background: rgba(13, 17, 23, 0.95);
+                backdrop-filter: blur(20px);
+                z-index: 99;
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(-12px);
+                transition: all var(--t-base);
+            }
+            .nav-menu-mobile.open {
+                opacity: 1;
+                pointer-events: auto;
+                transform: translateY(0);
+            }
+            .nav-menu-mobile a {
+                display: block;
+                padding: 14px 8px;
+                font-size: 17px;
+                color: var(--text-soft);
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-menu-mobile a:last-of-type { border: 0; }
         }
 
+        /* ═══════════════════════════════════════════════════════════
+           HERO
+        ═══════════════════════════════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            padding-top: 140px;
+            padding-bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        .hero-inner {
+            text-align: center;
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 18px 8px 12px;
+            border-radius: var(--r-pill);
+            font-size: 13px;
+            color: var(--text-soft);
+            margin-bottom: 36px;
+        }
+        .hero-badge-tag {
+            background: var(--accent);
+            color: var(--bg);
+            padding: 3px 10px;
+            border-radius: var(--r-pill);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        .hero h1 {
+            font-size: clamp(46px, 9vw, 116px);
+            line-height: 0.96;
+            letter-spacing: -0.035em;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .hero h1 .line { display: block; }
+        .hero h1 em {
+            font-family: var(--sans);
+            font-style: normal;
+            font-weight: 400;
+            color: var(--text);
+            letter-spacing: -0.025em;
+            background: linear-gradient(120deg, var(--primary-light) 0%, var(--accent) 60%, var(--warm) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-sub {
+            margin: 32px auto 0;
+            max-width: 620px;
+            font-size: clamp(17px, 1.5vw, 20px);
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+        .hero-ctas {
+            margin: 44px auto 0;
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 14px 32px;
-            border-radius: var(--radius-sm);
-            font-family: var(--font-display);
-            font-size: 0.95rem;
-            font-weight: 600;
+            padding: 14px 26px;
+            border-radius: var(--r-pill);
+            font-size: 15px;
+            font-weight: 500;
+            transition: all var(--t-fast);
             cursor: pointer;
-            transition: var(--transition-base);
-            border: none;
         }
-
-        .btn--primary {
-            background: var(--color-primary);
-            color: white;
+        .btn-primary {
+            background: var(--text);
+            color: var(--bg);
         }
-
-        .btn--primary:hover {
-            background: var(--color-primary-light);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(108, 99, 255, 0.35);
+        .btn-primary:hover {
+            transform: scale(1.04);
+            background: #fff;
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.12);
         }
-
-        .btn--ghost {
-            background: transparent;
-            color: var(--color-text);
-            border: 1px solid var(--color-border);
+        .btn-ghost {
+            color: var(--text-soft);
+            padding: 14px 22px;
         }
-
-        .btn--ghost:hover {
-            border-color: var(--color-border-hover);
-            background: var(--color-primary-glow);
+        .btn-ghost:hover {
+            background: rgba(255,255,255,0.04);
+            color: var(--text);
         }
-
-        .btn__arrow {
-            transition: var(--transition-base);
-        }
-
-        .btn:hover .btn__arrow { transform: translateX(4px); }
-
-        /* Code decoration */
-        .hero__code {
-            position: absolute;
-            right: 40px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 420px;
-            background: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-lg);
-            padding: 28px;
-            box-shadow: var(--shadow-glow);
-            animation: fadeInRight 1s ease 0.5s both;
-        }
-
-        .hero__code-header {
-            display: flex;
+        .btn-arrow {
+            width: 18px;
+            height: 18px;
+            display: inline-flex;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--color-border);
+            justify-content: center;
+            transition: transform var(--t-fast);
+        }
+        .btn:hover .btn-arrow { transform: translateX(3px); }
+
+        /* Hero showcase preview */
+        .hero-showcase {
+            margin-top: clamp(60px, 8vw, 100px);
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+            max-width: 1100px;
+            margin-left: auto;
+            margin-right: auto;
+            perspective: 1200px;
+        }
+        .showcase-tile {
+            aspect-ratio: 3/4;
+            border-radius: var(--r-md);
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+            transform-origin: center bottom;
+            transition: transform var(--t-base);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .showcase-tile:hover { transform: translateY(-8px) rotateX(2deg); }
+        .showcase-tile[data-project="klikandgo"] {
+            background: linear-gradient(160deg, #6C63FF 0%, #4F45D9 100%);
+        }
+        .showcase-tile[data-project="bativio"] {
+            background: linear-gradient(160deg, #C4531A 0%, #7D2F09 100%);
+        }
+        .showcase-tile[data-project="invoquo"] {
+            background: linear-gradient(160deg, #0EA5E9 0%, #0C4A6E 100%);
+        }
+        .showcase-tile[data-project="ksav"] {
+            background: linear-gradient(160deg, #00D4AA 0%, #00604B 100%);
+        }
+        .showcase-tile[data-project="pcmi13"] {
+            background: linear-gradient(160deg, #FF6B6B 0%, #8C1F1F 100%);
+        }
+        .showcase-tile-name {
+            font-size: clamp(11px, 1.1vw, 14px);
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: -0.01em;
+        }
+        .showcase-tile-cat {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .showcase-tile-orb {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.18);
+            filter: blur(40px);
+            top: 30%;
+            left: 30%;
+            pointer-events: none;
         }
 
-        .hero__code-dot {
-            width: 10px;
-            height: 10px;
+        @media (max-width: 720px) {
+            .hero-showcase { grid-template-columns: repeat(2, 1fr); }
+            .hero-showcase .showcase-tile:nth-child(5) { display: none; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           MARQUEE
+        ═══════════════════════════════════════════════════════════ */
+        .marquee {
+            margin-top: clamp(60px, 8vw, 100px);
+            overflow: hidden;
+            position: relative;
+            padding: 18px 0;
+            mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+        }
+        .marquee-track {
+            display: flex;
+            gap: 56px;
+            white-space: nowrap;
+            animation: marquee 36s linear infinite;
+            width: max-content;
+        }
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .marquee-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--mono);
+            font-size: 13px;
+            color: var(--text-secondary);
+            letter-spacing: 0.04em;
+        }
+        .marquee-dot {
+            width: 4px; height: 4px;
+            background: var(--text-dim);
             border-radius: 50%;
         }
 
-        .hero__code-dot--red { background: #FF5F57; }
-        .hero__code-dot--yellow { background: #FEBC2E; }
-        .hero__code-dot--green { background: #28C840; }
-
-        .hero__code-body {
-            font-family: var(--font-mono);
-            font-size: 0.82rem;
-            line-height: 2;
-            color: var(--color-text-secondary);
-        }
-
-        .hero__code-body .keyword { color: #C792EA; }
-        .hero__code-body .function { color: #82AAFF; }
-        .hero__code-body .string { color: var(--color-accent); }
-        .hero__code-body .comment { color: var(--color-text-muted); }
-        .hero__code-body .bracket { color: #FFD700; }
-
-        /* ═══════════════════════════════════════
-           STATS STRIP
-        ═══════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════════════════
+           STATS
+        ═══════════════════════════════════════════════════════════ */
         .stats {
+            padding-top: 40px;
+        }
+        .stats-card {
+            border-radius: var(--r-xl);
+            padding: clamp(36px, 5vw, 60px);
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 1px;
-            background: var(--color-border);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            margin: -60px 40px 0;
+            gap: 40px;
+        }
+        @media (max-width: 760px) {
+            .stats-card { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+        }
+        .stat {
             position: relative;
-            z-index: 2;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
         }
-
-        .stats__item {
-            background: var(--color-bg-card);
-            padding: 36px 32px;
-            text-align: center;
-            transition: var(--transition-base);
+        .stat + .stat::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 8px;
+            bottom: 8px;
+            width: 1px;
+            background: var(--border);
         }
-
-        .stats__item:hover {
-            background: var(--color-bg-elevated);
+        @media (max-width: 760px) {
+            .stat:nth-child(odd)::before { display: none; }
         }
-
-        .stats__number {
-            font-size: 2.2rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin-bottom: 4px;
-        }
-
-        .stats__number .gradient-text {
-            background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent));
+        .stat-value {
+            font-size: clamp(40px, 5vw, 64px);
+            font-weight: 600;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            background: linear-gradient(180deg, var(--text) 0%, var(--text-secondary) 100%);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .stat-value em {
+            font-family: var(--sans);
+            font-style: normal;
+            font-weight: 400;
+            background: linear-gradient(120deg, var(--primary-light) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-label {
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
 
-        .stats__desc {
-            font-size: 0.82rem;
-            color: var(--color-text-muted);
+        /* ═══════════════════════════════════════════════════════════
+           MANIFESTO (scroll word reveal)
+        ═══════════════════════════════════════════════════════════ */
+        .manifesto {
+            padding: clamp(120px, 16vw, 200px) 0;
+        }
+        .manifesto-text {
+            font-size: clamp(28px, 4.4vw, 56px);
+            line-height: 1.18;
+            letter-spacing: -0.025em;
             font-weight: 500;
+            max-width: 1080px;
+            margin: 0 auto;
+            color: var(--text-dim);
+        }
+        .manifesto-text .word {
+            display: inline-block;
+            transition: color 0.5s var(--ease-out);
+            color: var(--text-dim);
+        }
+        .manifesto-text .word.lit {
+            color: var(--text);
+        }
+        .manifesto-text em {
+            font-family: var(--sans);
+            font-style: normal;
+            font-weight: 400;
+        }
+        .manifesto-text em .word.lit {
+            color: var(--accent);
         }
 
-        /* ═══════════════════════════════════════
-           PRODUCTS SECTION
-        ═══════════════════════════════════════ */
-        .products {
-            padding-top: 160px;
-        }
+        /* ═══════════════════════════════════════════════════════════
+           PROJECTS
+        ═══════════════════════════════════════════════════════════ */
+        .projects { padding-top: 40px; }
 
-        .product-card {
+        .project {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: clamp(40px, 6vw, 96px);
             align-items: center;
-            margin-top: 80px;
-            padding: 48px;
-            background: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-xl);
-            transition: var(--transition-base);
-            position: relative;
-            overflow: hidden;
+            margin-bottom: clamp(80px, 12vw, 160px);
+        }
+        .project:last-child { margin-bottom: 0; }
+        .project.reverse .project-content { order: 2; }
+        .project.reverse .project-visual { order: 1; }
+        @media (max-width: 920px) {
+            .project { grid-template-columns: 1fr; gap: 48px; }
+            .project.reverse .project-content { order: 1; }
+            .project.reverse .project-visual { order: 2; }
         }
 
-        .product-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at top left, var(--color-primary-glow), transparent 60%);
-            opacity: 0;
-            transition: var(--transition-base);
-        }
-
-        .product-card:hover::before { opacity: 1; }
-
-        .product-card:hover {
-            border-color: var(--color-border-hover);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .product-card--reverse {
-            direction: rtl;
-        }
-
-        .product-card--reverse > * {
-            direction: ltr;
-        }
-
-        /* Full-width product card with tabs */
-        .product-card--full {
+        .project-content { max-width: 540px; }
+        .project-meta {
             display: flex;
-            flex-direction: column;
-            margin-top: 80px;
-            padding: 48px;
-            background: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-xl);
-            transition: var(--transition-base);
-            position: relative;
-            overflow: hidden;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
         }
-
-        .product-card--full::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at top left, var(--color-primary-glow), transparent 60%);
-            opacity: 0;
-            transition: var(--transition-base);
-        }
-
-        .product-card--full:hover::before { opacity: 1; }
-
-        .product-card--full:hover {
-            border-color: var(--color-border-hover);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .product-card--full__header {
-            display: flex;
-            gap: 40px;
-            align-items: flex-start;
-            margin-bottom: 32px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .product-card__features--horizontal {
-            display: grid !important;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px !important;
-            flex-shrink: 0;
-            min-width: 320px;
-        }
-
-        .product-tabs {
-            display: flex;
-            gap: 4px;
-            padding: 4px;
-            background: var(--color-bg);
-            border-radius: var(--radius-md);
-            margin-bottom: 20px;
-            width: fit-content;
-            position: relative;
-            z-index: 1;
-        }
-
-        .product-tab {
-            padding: 10px 22px;
-            background: transparent;
-            border: none;
-            border-radius: var(--radius-sm);
-            font-family: var(--font-display);
-            font-size: 0.82rem;
-            font-weight: 500;
-            color: var(--color-text-muted);
-            cursor: pointer;
-            transition: var(--transition-base);
-        }
-
-        .product-tab:hover {
-            color: var(--color-text-secondary);
-        }
-
-        .product-tab.active {
-            background: var(--color-primary);
-            color: white;
-            font-weight: 600;
-        }
-
-        .product-screenshots {
-            position: relative;
-            z-index: 1;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            border: 1px solid var(--color-border);
-        }
-
-        .product-screenshot {
-            display: none;
-        }
-
-        .product-screenshot.active {
-            display: block;
-        }
-
-        .product-screenshot img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        /* Mobile app screenshots - displayed centered with max height */
-        .product-screenshots--mobile {
-            background: var(--color-surface);
-            display: flex;
-            justify-content: center;
-            min-height: 500px;
-        }
-
-        .product-screenshots--mobile .product-screenshot {
-            display: none;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .product-screenshots--mobile .product-screenshot.active {
-            display: flex;
-        }
-
-        .product-screenshots--mobile .product-screenshot img {
-            width: auto;
-            max-height: 600px;
-            border-radius: var(--radius-md);
-            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-        }
-
-        .product-card__tag {
+        .pill {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 4px 14px;
-            background: var(--color-accent-glow);
-            border: 1px solid rgba(0, 212, 170, 0.2);
-            border-radius: 100px;
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--color-accent);
+            padding: 6px 12px;
+            border-radius: var(--r-pill);
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 20px;
+            color: var(--text-secondary);
+            border: 1px solid var(--border);
+            background: var(--surface-1);
+        }
+        .pill--live::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
+        .pill--beta::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--warm);
+            box-shadow: 0 0 8px var(--warm);
+        }
+        .pill--new::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--rose);
+            box-shadow: 0 0 8px var(--rose);
         }
 
-        .product-card__tag--coming {
-            background: rgba(255, 107, 107, 0.1);
-            border-color: rgba(255, 107, 107, 0.2);
-            color: var(--color-warning);
+        .project-title {
+            font-size: clamp(36px, 4.6vw, 56px);
+            font-weight: 600;
+            letter-spacing: -0.035em;
+            line-height: 1;
         }
-
-        .product-card__title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 16px;
+        .project-title em {
+            font-family: var(--sans);
+            font-style: normal;
+            font-weight: 400;
+            color: var(--accent);
         }
-
-        .product-card__desc {
-            font-size: 0.95rem;
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-            margin-bottom: 28px;
+        .project-tagline {
+            margin-top: 16px;
+            font-size: clamp(18px, 1.8vw, 22px);
+            color: var(--text-soft);
+            line-height: 1.5;
+            font-weight: 400;
         }
-
-        .product-card__features {
+        .project-desc {
+            margin-top: 24px;
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+        .project-features {
+            margin-top: 28px;
             list-style: none;
+            display: grid;
+            gap: 12px;
+        }
+        .project-features li {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-size: 15px;
+            color: var(--text-soft);
+            line-height: 1.5;
+        }
+        .project-features li::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            margin-top: 9px;
+            flex-shrink: 0;
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+        .project-stack {
+            margin-top: 28px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .stack-chip {
+            padding: 5px 11px;
+            border-radius: 8px;
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--surface-1);
+            border: 1px solid var(--border);
+        }
+        .project-cta {
+            margin-top: 36px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 22px;
+            border-radius: var(--r-pill);
+            font-size: 14px;
+            color: var(--text);
+            background: var(--surface-2);
+            border: 1px solid var(--border-hover);
+            transition: all var(--t-fast);
+        }
+        .project-cta:hover {
+            background: var(--text);
+            color: var(--bg);
+            transform: translateY(-2px);
+            border-color: var(--text);
+        }
+
+        /* Project visuals */
+        .project-visual {
+            position: relative;
+            aspect-ratio: 5/4;
+            border-radius: var(--r-xl);
+            overflow: hidden;
+            padding: 0;
+        }
+        .project-visual .glow {
+            position: absolute;
+            inset: -30%;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* Project-specific mock surfaces */
+        .mock {
+            position: absolute;
+            inset: 24px;
+            border-radius: var(--r-md);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+        .mock-bar {
+            height: 32px;
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            gap: 6px;
+        }
+        .mock-bar-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--surface-hover);
+        }
+        .mock-bar-url {
+            margin-left: auto;
+            margin-right: auto;
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-muted);
+            padding: 3px 14px;
+            background: var(--bg);
+            border-radius: 999px;
+            border: 1px solid var(--border);
+        }
+        .mock-content {
+            flex: 1;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        .product-card__features li {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 0.88rem;
-            color: var(--color-text-secondary);
-        }
-
-        .product-card__features .check {
-            width: 20px;
-            height: 20px;
-            border-radius: 6px;
-            background: var(--color-accent-glow);
-            border: 1px solid rgba(0, 212, 170, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            color: var(--color-accent);
-            font-size: 0.7rem;
-        }
-
-        /* Product mockup / screenshot placeholder */
-        .product-card__visual {
-            position: relative;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            background: var(--color-surface);
-            border: 1px solid var(--color-border);
-            aspect-ratio: 16/10;
-        }
-
-        .product-card__visual-inner {
+        /* Real screenshot variant — image fills the chrome frame */
+        .mock-img {
             width: 100%;
             height: 100%;
-            display: flex;
-            flex-direction: column;
+            object-fit: cover;
+            object-position: top left;
+            display: block;
+            flex: 1;
+            min-height: 0;
         }
 
-        .mockup-bar {
-            display: flex;
+        /* Floating mobile mockup over a desktop image */
+        .mock-mobile-frame {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            width: 22%;
+            max-width: 130px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7), 0 0 0 2px var(--bg);
+            transition: transform var(--t-base), box-shadow var(--t-base);
+            z-index: 2;
+        }
+        .mock-mobile-frame img { width: 100%; height: auto; display: block; }
+        .project-visual:hover .mock-mobile-frame {
+            transform: translate(-6px, -6px) scale(1.04);
+            box-shadow: 0 32px 60px rgba(0, 0, 0, 0.8), 0 0 0 2px var(--bg);
+        }
+
+        /* "Live" badge inside chrome bar */
+        .mock-live-badge {
+            display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 12px 16px;
-            background: var(--color-bg-elevated);
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .mockup-bar__dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-
-        .mockup-bar__url {
-            flex: 1;
-            margin-left: 12px;
-            padding: 4px 12px;
-            background: var(--color-bg);
-            border-radius: 4px;
-            font-family: var(--font-mono);
-            font-size: 0.65rem;
-            color: var(--color-text-muted);
-        }
-
-        .mockup-content {
-            flex: 1;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        /* Ticket system mockup */
-        .ticket-mockup__header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .ticket-mockup__title {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--color-text);
-        }
-
-        .ticket-mockup__badge {
+            margin-left: auto;
             padding: 3px 10px;
-            border-radius: 100px;
-            font-size: 0.6rem;
-            font-weight: 600;
-            font-family: var(--font-mono);
-        }
-
-        .ticket-mockup__badge--open {
             background: rgba(0, 212, 170, 0.15);
-            color: var(--color-accent);
-        }
-
-        .ticket-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 14px;
-            background: var(--color-bg);
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--color-border);
-            transition: var(--transition-base);
-        }
-
-        .ticket-row:hover {
-            border-color: var(--color-border-hover);
-        }
-
-        .ticket-row__priority {
-            width: 4px;
-            height: 28px;
-            border-radius: 2px;
-        }
-
-        .ticket-row__priority--high { background: var(--color-warning); }
-        .ticket-row__priority--medium { background: #FFB84D; }
-        .ticket-row__priority--low { background: var(--color-accent); }
-
-        .ticket-row__info {
-            flex: 1;
-        }
-
-        .ticket-row__name {
-            font-size: 0.72rem;
+            color: var(--accent);
+            border-radius: 999px;
+            font-family: var(--mono);
+            font-size: 10px;
             font-weight: 600;
-            color: var(--color-text);
+            letter-spacing: 0.05em;
         }
-
-        .ticket-row__meta {
-            font-size: 0.6rem;
-            color: var(--color-text-muted);
-            font-family: var(--font-mono);
-        }
-
-        .ticket-row__status {
-            font-size: 0.55rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-        }
-
-        .ticket-row__status--progress { background: rgba(108, 99, 255, 0.15); color: var(--color-primary-light); }
-        .ticket-row__status--new { background: rgba(0, 212, 170, 0.15); color: var(--color-accent); }
-        .ticket-row__status--waiting { background: rgba(255, 184, 77, 0.15); color: #FFB84D; }
-
-        /* Klikphone mockup */
-        .phone-mockup {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .phone-card {
-            padding: 12px;
-            background: var(--color-bg);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-sm);
-            text-align: center;
-            transition: var(--transition-base);
-        }
-
-        .phone-card:hover { border-color: var(--color-border-hover); }
-
-        .phone-card__icon {
-            font-size: 1.6rem;
-            margin-bottom: 6px;
-        }
-
-        .phone-card__name {
-            font-size: 0.65rem;
-            font-weight: 600;
-            color: var(--color-text);
-            margin-bottom: 2px;
-        }
-
-        .phone-card__price {
-            font-size: 0.6rem;
-            color: var(--color-accent);
-            font-family: var(--font-mono);
-            font-weight: 600;
-        }
-
-        /* Teaser card */
-        /* ═══ COMING SOON SECTION ═══ */
-        .coming-soon {
-            position: relative;
-            margin-top: 80px;
-            padding: 80px 48px;
-            background: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-xl);
-            text-align: center;
-            overflow: hidden;
-        }
-
-        .coming-soon__glow {
-            position: absolute;
-            top: -200px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(108, 99, 255, 0.15), transparent 70%);
-            pointer-events: none;
-            animation: comingGlow 6s ease-in-out infinite;
-        }
-
-        .coming-soon__glow--2 {
-            top: auto;
-            bottom: -300px;
-            background: radial-gradient(circle, rgba(0, 212, 170, 0.1), transparent 70%);
-            animation-delay: 3s;
-        }
-
-        @keyframes comingGlow {
-            0%, 100% { opacity: 0.5; transform: translateX(-50%) scale(1); }
-            50% { opacity: 1; transform: translateX(-50%) scale(1.2); }
-        }
-
-        .coming-soon__badge {
-            display: inline-block;
-            padding: 6px 20px;
-            background: rgba(255, 107, 107, 0.1);
-            border: 1px solid rgba(255, 107, 107, 0.2);
-            border-radius: 100px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--color-warning);
-            margin-bottom: 40px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .coming-soon__icon {
-            position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            z-index: 1;
-        }
-
-        .coming-soon__ring {
-            position: absolute;
-            inset: 0;
-            border: 2px solid var(--color-primary);
+        .mock-live-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            opacity: 0.3;
-            animation: ringPulse 3s ease-in-out infinite;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .coming-soon__ring--2 {
-            inset: -15px;
-            border-color: var(--color-accent);
-            opacity: 0.2;
-            animation-delay: 1s;
-        }
-
-        .coming-soon__ring--3 {
-            inset: -30px;
-            border-color: var(--color-warning);
-            opacity: 0.1;
-            animation-delay: 2s;
-        }
-
-        @keyframes ringPulse {
-            0%, 100% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.15); opacity: 0.6; }
-        }
-
-        .coming-soon__title {
-            font-size: clamp(1.8rem, 4vw, 2.8rem);
-            font-weight: 800;
-            letter-spacing: -1px;
-            line-height: 1.2;
-            margin-bottom: 24px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .coming-soon__desc {
-            font-size: 1.05rem;
-            color: var(--color-text-secondary);
-            line-height: 1.7;
-            max-width: 600px;
-            margin: 0 auto 48px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .coming-soon__hints {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            max-width: 800px;
-            margin: 0 auto 56px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .coming-soon__hint {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            padding: 20px 16px;
-            background: var(--color-bg-elevated);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            font-size: 0.82rem;
-            color: var(--color-text-secondary);
-            transition: var(--transition-base);
-        }
-
-        .coming-soon__hint:hover {
-            border-color: var(--color-border-hover);
-            color: var(--color-text);
-        }
-
-        .coming-soon__hint-icon { font-size: 1.5rem; }
-
-        .coming-soon__cta { position: relative; z-index: 1; }
-
-        .coming-soon__cta-text {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--color-text);
-            margin-bottom: 20px;
-        }
-
-        .coming-soon__form {
-            display: flex;
-            gap: 8px;
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
-        .coming-soon__input {
-            flex: 1;
-            padding: 14px 20px;
-            background: var(--color-bg);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-md);
-            color: var(--color-text);
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            outline: none;
-            transition: var(--transition-base);
-        }
-
-        .coming-soon__input:focus {
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px var(--color-primary-glow);
-        }
-
-        .coming-soon__input::placeholder { color: var(--color-text-muted); }
-
-        .coming-soon__btn {
-            padding: 14px 28px;
-            background: var(--color-primary);
-            border: none;
-            border-radius: var(--radius-md);
-            color: white;
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-base);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            white-space: nowrap;
-        }
-
-        .coming-soon__btn:hover {
-            background: var(--color-primary-light);
-            transform: translateY(-1px);
-        }
-
-        .coming-soon__btn-arrow { transition: transform 0.3s; }
-        .coming-soon__btn:hover .coming-soon__btn-arrow { transform: translateX(4px); }
-
-        .coming-soon__form-note {
-            font-size: 0.72rem;
-            color: var(--color-text-muted);
-            margin-top: 12px;
-        }
-
-        .coming-soon__success {
-            padding: 16px 24px;
-            background: var(--color-accent-glow);
-            border: 1px solid rgba(0, 212, 170, 0.3);
-            border-radius: var(--radius-md);
-            color: var(--color-accent);
-            font-weight: 600;
-            font-size: 0.9rem;
-            max-width: 480px;
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        @media (max-width: 768px) {
-            .coming-soon { padding: 60px 24px; }
-            .coming-soon__hints { grid-template-columns: repeat(2, 1fr); }
-            .coming-soon__form { flex-direction: column; }
-            .coming-soon__btn { justify-content: center; }
-        }
-
-        .teaser-visual {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            background: radial-gradient(ellipse at center, var(--color-primary-glow), transparent 70%);
-        }
-
-        .teaser-visual__icon {
-            font-size: 5rem;
-            animation: float 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 40px rgba(108, 99, 255, 0.3));
-        }
-
-        .teaser-visual__ring {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            border: 1px solid var(--color-border);
-            border-radius: 50%;
-            animation: spinSlow 20s linear infinite;
-        }
-
-        .teaser-visual__ring:nth-child(2) {
-            width: 280px;
-            height: 280px;
-            border-style: dashed;
-            animation-direction: reverse;
-            animation-duration: 30s;
-        }
-
-        /* ═══════════════════════════════════════
-           SCREENSHOT PLACEHOLDER
-        ═══════════════════════════════════════ */
-        .screenshot-placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            gap: 12px;
-            color: var(--color-text-muted);
-            font-size: 0.8rem;
-            text-align: center;
-            padding: 20px;
-        }
-
-        .screenshot-placeholder__icon {
-            font-size: 2.5rem;
-            opacity: 0.5;
-        }
-
-        .screenshot-placeholder__text {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-        }
-
-        /* ═══════════════════════════════════════
-           ABOUT SECTION
-        ═══════════════════════════════════════ */
-        .about-grid {
+        /* ═══════════════════════════════════════════════════════════
+           APPROACH
+        ═══════════════════════════════════════════════════════════ */
+        .approach-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 60px;
-        }
-
-        @media (max-width: 1024px) {
-            .about-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        .about-card {
-            padding: 36px 28px;
-            background: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-lg);
-            transition: var(--transition-base);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
-            opacity: 0;
-            transition: var(--transition-base);
-        }
-
-        .about-card:hover {
-            border-color: var(--color-border-hover);
-            transform: translateY(-4px);
-        }
-
-        .about-card:hover::before { opacity: 1; }
-
-        .about-card__icon {
-            width: 52px;
-            height: 52px;
-            border-radius: var(--radius-md);
-            background: var(--color-primary-glow);
-            border: 1px solid var(--color-border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-        }
-
-        .about-card__title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .about-card__desc {
-            font-size: 0.85rem;
-            color: var(--color-text-secondary);
-            line-height: 1.7;
-        }
-
-        /* ═══════════════════════════════════════
-           CONTACT SECTION
-        ═══════════════════════════════════════ */
-        .contact-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 60px;
-            margin-top: 60px;
-            align-items: start;
-        }
-
-        .contact-info__title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .contact-info__text {
-            font-size: 0.95rem;
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-            margin-bottom: 36px;
-        }
-
-        .contact-info__items {
-            display: flex;
-            flex-direction: column;
             gap: 20px;
         }
-
-        .contact-info__item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+        @media (max-width: 920px) {
+            .approach-grid { grid-template-columns: 1fr; }
+        }
+        .approach-card {
+            border-radius: var(--r-xl);
+            padding: 36px;
+            transition: transform var(--t-base);
+        }
+        .approach-card:hover { transform: translateY(-6px); }
+        .approach-num {
+            font-family: var(--mono);
+            font-weight: 500;
+            font-size: 52px;
+            line-height: 1;
+            color: var(--primary-light);
+            opacity: 0.55;
+            margin-bottom: 18px;
+            letter-spacing: -0.02em;
+        }
+        .approach-card h3 {
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 14px;
+        }
+        .approach-card h3 em {
+            font-family: var(--sans);
+            font-style: normal;
+            font-weight: 400;
+            color: var(--accent);
+        }
+        .approach-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .approach-card-footer {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
         }
 
-        .contact-info__item-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: var(--radius-sm);
-            background: var(--color-primary-glow);
-            border: 1px solid var(--color-border);
+        /* ═══════════════════════════════════════════════════════════
+           CTA
+        ═══════════════════════════════════════════════════════════ */
+        .cta-wrap {
+            position: relative;
+            padding: clamp(120px, 14vw, 180px) 0;
+            text-align: center;
+            overflow: hidden;
+        }
+        .cta-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 900px;
+            height: 900px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary-glow) 0%, transparent 60%);
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: -1;
+        }
+        .cta-eyebrow {
+            display: inline-flex;
+            margin-bottom: 28px;
+        }
+        .cta-title {
+            font-size: clamp(40px, 6.5vw, 84px);
+            font-weight: 600;
+            letter-spacing: -0.035em;
+            line-height: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .cta-title em {
+            font-family: var(--sans);
+            font-style: normal;
+            font-weight: 400;
+            background: linear-gradient(120deg, var(--primary-light) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cta-sub {
+            margin: 26px auto 0;
+            max-width: 520px;
+            color: var(--text-secondary);
+            font-size: 17px;
+            line-height: 1.65;
+        }
+        .cta-form {
+            margin: 44px auto 0;
+            max-width: 480px;
+            border-radius: var(--r-pill);
+            padding: 8px 8px 8px 24px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1rem;
+            gap: 8px;
+        }
+        .cta-form input {
+            flex: 1;
+            background: transparent;
+            border: 0;
+            outline: 0;
+            color: var(--text);
+            font-size: 15px;
+            font-family: inherit;
+            padding: 8px 0;
+        }
+        .cta-form input::placeholder { color: var(--text-muted); }
+        .cta-form button {
+            padding: 12px 22px;
+            background: var(--text);
+            color: var(--bg);
+            border-radius: var(--r-pill);
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all var(--t-fast);
             flex-shrink: 0;
         }
-
-        .contact-info__item-text {
-            font-size: 0.9rem;
-            color: var(--color-text-secondary);
+        .cta-form button:hover { transform: scale(1.04); background: #fff; }
+        .cta-links {
+            margin-top: 28px;
+            display: flex;
+            gap: 28px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
-
-        .contact-info__item-label {
-            font-size: 0.7rem;
-            font-family: var(--font-mono);
-            color: var(--color-text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 2px;
+        .cta-link {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color var(--t-fast);
         }
+        .cta-link:hover { color: var(--text); }
 
-        .contact-form {
-            padding: 40px;
-            background: var(--color-bg-card);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-xl);
+        /* ═══════════════════════════════════════════════════════════
+           GALLERY (horizontal scroll showcase)
+        ═══════════════════════════════════════════════════════════ */
+        .gallery {
+            padding-top: 0;
         }
-
-        .contact-form__group {
-            margin-bottom: 20px;
+        .gallery-scroll {
+            overflow-x: auto;
+            overflow-y: visible;
+            padding: 28px var(--gutter) 56px;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            scroll-padding-left: var(--gutter);
+            mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 4%, #000 96%, transparent 100%);
         }
-
-        .contact-form__label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--color-text-secondary);
-            margin-bottom: 8px;
+        .gallery-scroll::-webkit-scrollbar {
+            height: 6px;
         }
-
-        .contact-form__input,
-        .contact-form__textarea {
+        .gallery-scroll::-webkit-scrollbar-track {
+            background: var(--surface-1);
+            border-radius: 999px;
+            margin: 0 var(--gutter);
+        }
+        .gallery-scroll::-webkit-scrollbar-thumb {
+            background: var(--text-dim);
+            border-radius: 999px;
+        }
+        .gallery-scroll::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+        .gallery-track {
+            display: flex;
+            gap: 22px;
+            width: max-content;
+            padding: 4px 4px 8px;
+        }
+        .gallery-card {
+            width: 480px;
+            flex-shrink: 0;
+            border-radius: var(--r-lg);
+            overflow: hidden;
+            position: relative;
+            scroll-snap-align: start;
+            cursor: pointer;
+            transition: transform var(--t-base), box-shadow var(--t-base);
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+        .gallery-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--border-hover);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+        .gallery-card-frame {
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16/10;
+        }
+        .gallery-card img {
             width: 100%;
-            padding: 12px 16px;
-            background: var(--color-bg);
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-sm);
-            color: var(--color-text);
-            font-family: var(--font-display);
-            font-size: 0.9rem;
-            transition: var(--transition-base);
-            outline: none;
+            height: 100%;
+            object-fit: cover;
+            object-position: top left;
+            display: block;
+            transition: transform 0.7s var(--ease-out);
+        }
+        .gallery-card:hover img {
+            transform: scale(1.04);
+        }
+        .gallery-badge {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            z-index: 3;
+            padding: 6px 12px;
+            border-radius: var(--r-pill);
+            font-family: var(--mono);
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #fff;
+            font-weight: 600;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        .gallery-badge--ksav {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.95), rgba(0, 96, 75, 0.95));
+        }
+        .gallery-badge--bativio {
+            background: linear-gradient(135deg, rgba(196, 83, 26, 0.95), rgba(125, 47, 9, 0.95));
+        }
+        .gallery-card figcaption {
+            padding: 14px 18px;
+            font-size: 13px;
+            color: var(--text-soft);
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .gallery-card figcaption .gallery-num {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+        .gallery-hint {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: -10px;
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .gallery-hint-arrow {
+            display: inline-flex;
+            animation: bounceX 1.8s ease-in-out infinite;
+        }
+        @keyframes bounceX {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(6px); }
+        }
+        @media (max-width: 720px) {
+            .gallery-card { width: 320px; }
         }
 
-        .contact-form__input:focus,
-        .contact-form__textarea:focus {
-            border-color: var(--color-primary);
-            box-shadow: 0 0 0 3px var(--color-primary-glow);
+        /* ═══════════════════════════════════════════════════════════
+           FOOTER
+        ═══════════════════════════════════════════════════════════ */
+        footer {
+            position: relative;
+            z-index: 2;
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--border);
         }
-
-        .contact-form__textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-
-        .contact-form__row {
+        .footer-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        @media (max-width: 720px) {
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .footer-brand .nav-brand-mark { width: 32px; height: 32px; font-size: 16px; }
+        .footer-tagline {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.7;
+            max-width: 340px;
+        }
+        .footer-col h4 {
+            font-family: var(--mono);
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 18px;
+        }
+        .footer-col ul { list-style: none; display: grid; gap: 10px; }
+        .footer-col a {
+            font-size: 14px;
+            color: var(--text-soft);
+            transition: color var(--t-fast);
+        }
+        .footer-col a:hover { color: var(--text); }
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 28px;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-muted);
+            flex-wrap: wrap;
             gap: 16px;
         }
 
-        .contact-form .btn {
-            width: 100%;
-            justify-content: center;
-            margin-top: 8px;
-        }
-
-        /* ═══════════════════════════════════════
-           FOOTER
-        ═══════════════════════════════════════ */
-        .footer {
-            position: relative;
-            z-index: 1;
-            margin-top: 80px;
-            padding: 40px;
-            border-top: 1px solid var(--color-border);
-            text-align: center;
-        }
-
-        .footer__text {
-            font-size: 0.8rem;
-            color: var(--color-text-muted);
-        }
-
-        .footer__text span { color: var(--color-primary-light); font-weight: 600; }
-
-        /* ═══════════════════════════════════════
-           ANIMATIONS
-        ═══════════════════════════════════════ */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInRight {
-            from { opacity: 0; transform: translate(40px, -50%); }
-            to { opacity: 1; transform: translate(0, -50%); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-
-        @keyframes spinSlow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Scroll reveal */
+        /* ═══════════════════════════════════════════════════════════
+           REVEAL ANIMATIONS
+        ═══════════════════════════════════════════════════════════ */
         .reveal {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            transform: translateY(24px);
+            transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+            transition-delay: var(--reveal-delay, 0s);
         }
-
-        .reveal.visible {
+        .reveal.in {
             opacity: 1;
             transform: translateY(0);
         }
-
-        /* ═══════════════════════════════════════
-           RESPONSIVE
-        ═══════════════════════════════════════ */
-        @media (max-width: 1024px) {
-            .hero__code { display: none; }
-            .product-card { grid-template-columns: 1fr; }
-            .product-card--reverse { direction: ltr; }
-            .contact-wrapper { grid-template-columns: 1fr; }
-            .stats { grid-template-columns: repeat(2, 1fr); }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; transition: none; }
+            .orb, .marquee-track, .pulse, .showcase-tile { animation: none !important; }
+            .liquid-glass { backdrop-filter: none; background: rgba(255,255,255,0.04); }
         }
 
-        @media (max-width: 768px) {
-            .section { padding: 80px 20px; }
-            .navbar { padding: 14px 20px; }
-            .navbar__links { display: none; }
-            .navbar__toggle { display: block; }
-            .stats { 
-                grid-template-columns: 1fr 1fr;
-                margin: -40px 20px 0;
-            }
-            .product-card { padding: 24px; gap: 32px; }
-            .contact-form__row { grid-template-columns: 1fr; }
-            .hero__actions { flex-direction: column; }
-            .hero__actions .btn { width: 100%; justify-content: center; }
-        }
+        /* ═══════════════════════════════════════════════════════════
+           HELPERS
+        ═══════════════════════════════════════════════════════════ */
+        .svg-stroke { stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; fill: none; }
     </style>
 </head>
 <body>
 
-    <!-- Background effects -->
+    <!-- Background layers -->
     <div class="bg-grid"></div>
-    <div class="bg-gradient-orb bg-gradient-orb--1"></div>
-    <div class="bg-gradient-orb bg-gradient-orb--2"></div>
+    <div class="bg-noise"></div>
+    <div class="orb orb--purple"></div>
+    <div class="orb orb--teal"></div>
+    <div class="orb orb--rose"></div>
 
-    <!-- ═══ NAVBAR ═══ -->
-    <nav class="navbar">
-        <div class="navbar__logo">
-            <span>Klik</span><span>&</span><span>Dev</span>
-        </div>
-        <ul class="navbar__links">
-            <li><a href="#accueil">Accueil</a></li>
-            <li><a href="#produits">Produits</a></li>
-            <li><a href="#apropos">À propos</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <button class="navbar__cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Discutons →</button>
-        <button class="navbar__toggle" onclick="this.classList.toggle('active')">
-            <span></span><span></span><span></span>
-        </button>
-    </nav>
-
-    <!-- ═══ HERO ═══ -->
-    <section class="section hero" id="accueil">
-        <div class="hero__content">
-            <div class="hero__badge">
-                <span class="dot"></span>
-                Nouveau projet en cours de développement
+    <!-- ══════════════════════════════════════════
+         NAVBAR
+    ══════════════════════════════════════════ -->
+    <div class="nav-wrap">
+        <nav class="nav liquid-glass" id="nav">
+            <a href="#" class="nav-brand">
+                <span class="nav-brand-mark">K</span>
+                Klik<span style="color: var(--text-muted)">/</span>Dev
+            </a>
+            <div class="nav-links">
+                <a href="#projects">Projets</a>
+                <a href="#approach">Approche</a>
+                <a href="#stats">Studio</a>
+                <a href="#contact">Contact</a>
             </div>
-            <h1 class="hero__title">
-                Des logiciels qui<br>
-                <span class="gradient-text">simplifient la vie</span><br>
-                des entreprises.
-            </h1>
-            <p class="hero__description">
-                Klik&Dev conçoit des solutions logicielles sur mesure pour les entreprises. 
-                Une équipe de développeurs, designers UI/UX et spécialistes IA qui 
-                transforme vos processus en outils performants et intuitifs.
-            </p>
-            <div class="hero__actions">
-                <a href="#produits" class="btn btn--primary">
-                    Découvrir nos solutions
-                    <span class="btn__arrow">→</span>
-                </a>
-                <a href="#contact" class="btn btn--ghost">
-                    Nous contacter
-                </a>
-            </div>
-        </div>
-
-        <!-- Decorative code block -->
-        <div class="hero__code">
-            <div class="hero__code-header">
-                <div class="hero__code-dot hero__code-dot--red"></div>
-                <div class="hero__code-dot hero__code-dot--yellow"></div>
-                <div class="hero__code-dot hero__code-dot--green"></div>
-            </div>
-            <div class="hero__code-body">
-                <span class="comment">// klikdev.config.ts</span><br>
-                <span class="keyword">const</span> <span class="function">solution</span> = <span class="bracket">{</span><br>
-                &nbsp;&nbsp;client: <span class="string">"votre-entreprise"</span>,<br>
-                &nbsp;&nbsp;type: <span class="string">"sur-mesure"</span>,<br>
-                &nbsp;&nbsp;stack: [<span class="string">"moderne"</span>, <span class="string">"scalable"</span>],<br>
-                &nbsp;&nbsp;support: <span class="keyword">true</span>,<br>
-                &nbsp;&nbsp;innovation: <span class="string">"∞"</span><br>
-                <span class="bracket">}</span>;<br><br>
-                <span class="function">klikdev</span>.<span class="function">deploy</span>(solution);<br>
-                <span class="comment">// ✓ En production</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ═══ STATS ═══ -->
-    <div class="stats">
-        <div class="stats__item">
-            <div class="stats__number"><span class="gradient-text">6-7</span></div>
-            <div class="stats__desc">Experts dans l'équipe</div>
-        </div>
-        <div class="stats__item">
-            <div class="stats__number"><span class="gradient-text">100%</span></div>
-            <div class="stats__desc">Solutions sur mesure</div>
-        </div>
-        <div class="stats__item">
-            <div class="stats__number"><span class="gradient-text">24/7</span></div>
-            <div class="stats__desc">Support & maintenance</div>
-        </div>
-        <div class="stats__item">
-            <div class="stats__number"><span class="gradient-text">3</span></div>
-            <div class="stats__desc">Produits en production & à venir</div>
+            <a href="#contact" class="nav-cta">
+                Démarrer
+                <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span></button>
+        </nav>
+        <div class="nav-menu-mobile" id="navMobile">
+            <a href="#projects">Projets</a>
+            <a href="#approach">Approche</a>
+            <a href="#stats">Studio</a>
+            <a href="#contact">Contact</a>
         </div>
     </div>
 
-    <!-- ═══ PRODUCTS ═══ -->
-    <section class="section products" id="produits">
-        <div class="section__label">Nos solutions</div>
-        <h2 class="section__title">Des outils pensés pour<br><span class="gradient-text">votre productivité</span></h2>
-        <p class="section__subtitle">
-            Chaque solution est conçue en étroite collaboration avec nos clients pour 
-            répondre exactement à leurs besoins métier.
-        </p>
-
-        <!-- PRODUCT 1: Système SAV complet -->
-        <div class="product-card product-card--full reveal">
-            <div class="product-card--full__header">
-                <div>
-                    <div class="product-card__tag">✦ En production</div>
-                    <h3 class="product-card__title">Système de Gestion SAV & Suivi Client</h3>
-                    <p class="product-card__desc">
-                        Une application complète développée pour KlikPhone : gestion de tickets, 
-                        suivi client en temps réel, reporting avancé. Conçue pour optimiser chaque 
-                        étape du parcours de réparation.
-                    </p>
-                </div>
-                <ul class="product-card__features product-card__features--horizontal">
-                    <li><span class="check">✓</span> Dashboard temps réel</li>
-                    <li><span class="check">✓</span> Suivi client complet</li>
-                    <li><span class="check">✓</span> Gestion des tickets SAV</li>
-                    <li><span class="check">✓</span> Reporting & analyses</li>
-                    <li><span class="check">✓</span> Suivi de réparation client</li>
-                    <li><span class="check">✓</span> Stock pièces détachées</li>
-                </ul>
-            </div>
-            <div class="product-tabs">
-                <button class="product-tab active" onclick="switchTab('sav', 0)">📊 Dashboard</button>
-                <button class="product-tab" onclick="switchTab('sav', 1)">🎫 Tickets</button>
-                <button class="product-tab" onclick="switchTab('sav', 2)">🔍 Suivi réparation</button>
-                <button class="product-tab" onclick="switchTab('sav', 3)">📈 Reporting</button>
-                <button class="product-tab" onclick="switchTab('sav', 4)">📊 Analyses</button>
-            </div>
-            <div class="product-screenshots" id="sav-screenshots">
-                <div class="product-screenshot active">
-                    <img src="dashboard.png" alt="Dashboard SAV" />
-                </div>
-                <div class="product-screenshot">
-                    <img src="tickets-list.png" alt="Liste des tickets" />
-                </div>
-                <div class="product-screenshot">
-                    <img src="suivi-client.png" alt="Suivi réparation client" />
-                </div>
-                <div class="product-screenshot">
-                    <img src="reporting.png" alt="Reporting" />
-                </div>
-                <div class="product-screenshot">
-                    <img src="reporting-analyses.png" alt="Analyses" />
-                </div>
-            </div>
-        </div>
-
-        <!-- PRODUCT 2: Klikphone App -->
-        <div class="product-card product-card--full reveal">
-            <div class="product-card--full__header">
-                <div>
-                    <div class="product-card__tag">✦ En production</div>
-                    <h3 class="product-card__title">Klikphone — Application Client</h3>
-                    <p class="product-card__desc">
-                        L'application client de KlikPhone, spécialiste Apple & multimarque à Chambéry. 
-                        Dépôt d'appareil, suivi de réparation en temps réel, et confirmation 
-                        instantanée — tout en quelques clics.
-                    </p>
-                </div>
-                <ul class="product-card__features product-card__features--horizontal">
-                    <li><span class="check">✓</span> Dépôt d'appareil en boutique</li>
-                    <li><span class="check">✓</span> Pré-enregistrement à distance</li>
-                    <li><span class="check">✓</span> Suivi de réparation par ticket</li>
-                    <li><span class="check">✓</span> Confirmation et numéro de suivi</li>
-                </ul>
-            </div>
-            <div class="product-tabs">
-                <button class="product-tab active" onclick="switchTab('klik', 0)">🏠 Accueil</button>
-                <button class="product-tab" onclick="switchTab('klik', 1)">✅ Confirmation</button>
-            </div>
-            <div class="product-screenshots product-screenshots--mobile" id="klik-screenshots">
-                <div class="product-screenshot active">
-                    <img src="homepage.png" alt="Page d'accueil Klikphone" />
-                </div>
-                <div class="product-screenshot">
-                    <img src="depot-confirmation.png" alt="Confirmation de dépôt" />
-                </div>
-            </div>
-        </div>
-
-        <!-- PRODUCT 3: Coming Soon - Full Landing -->
-        <div class="coming-soon reveal">
-            <div class="coming-soon__glow"></div>
-            <div class="coming-soon__glow coming-soon__glow--2"></div>
-            
-            <div class="coming-soon__badge">🔥 Coming soon</div>
-            
-            <div class="coming-soon__icon">
-                <div class="coming-soon__ring"></div>
-                <div class="coming-soon__ring coming-soon__ring--2"></div>
-                <div class="coming-soon__ring coming-soon__ring--3"></div>
-                <span>⏱️</span>
+    <!-- ══════════════════════════════════════════
+         HERO
+    ══════════════════════════════════════════ -->
+    <section class="hero">
+        <div class="container hero-inner">
+            <div class="hero-badge liquid-glass reveal">
+                <span class="hero-badge-tag">2026</span>
+                Studio indépendant · 5 produits en production
             </div>
 
-            <h3 class="coming-soon__title">
-                Et si vous n'aviez<br>
-                <span class="gradient-text">plus jamais à attendre ?</span>
-            </h3>
-            
-            <p class="coming-soon__desc">
-                Nous développons un outil qui va transformer le quotidien des commerces 
-                et de leurs clients. Fini les files d'attente, fini la frustration — 
-                une expérience repensée de A à Z.
+            <h1 class="reveal" style="--reveal-delay: 0.1s">
+                <span class="line">Cinq produits.</span>
+                <span class="line"><em>Une obsession.</em></span>
+            </h1>
+
+            <p class="hero-sub reveal" style="--reveal-delay: 0.2s">
+                On conçoit, développe et déploie des SaaS web et services pour les pros qui n'ont pas le temps d'attendre. Du click&collect à la facturation conforme NF525, du SAV téléphonie à la réparation PC — un seul atelier, cinq façons de simplifier le quotidien.
             </p>
 
-            <div class="coming-soon__hints">
-                <div class="coming-soon__hint">
-                    <span class="coming-soon__hint-icon">⏳</span>
-                    <span>Réduction drastique des temps d'attente</span>
-                </div>
-                <div class="coming-soon__hint">
-                    <span class="coming-soon__hint-icon">🏪</span>
-                    <span>Conçu pour les commerces locaux</span>
-                </div>
-                <div class="coming-soon__hint">
-                    <span class="coming-soon__hint-icon">📱</span>
-                    <span>Simple, rapide, moderne</span>
-                </div>
-                <div class="coming-soon__hint">
-                    <span class="coming-soon__hint-icon">🚀</span>
-                    <span>Lancement imminent</span>
-                </div>
+            <div class="hero-ctas reveal" style="--reveal-delay: 0.3s">
+                <a href="#projects" class="btn btn-primary">
+                    Voir les projets
+                    <span class="btn-arrow"><svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </a>
+                <a href="#contact" class="btn btn-ghost">Parler d'un projet →</a>
             </div>
 
-            <div class="coming-soon__cta">
-                <p class="coming-soon__cta-text">Soyez les premiers informés du lancement</p>
-                <div class="coming-soon__form" id="comingSoonForm">
-                    <input type="email" class="coming-soon__input" placeholder="votre@email.com" id="comingSoonEmail" />
-                    <button class="coming-soon__btn" onclick="handleComingSoon()">
-                        Me notifier
-                        <span class="coming-soon__btn-arrow">→</span>
+            <!-- Showcase tiles -->
+            <div class="hero-showcase reveal" style="--reveal-delay: 0.45s">
+                <a href="#klikandgo" class="showcase-tile liquid-glass" data-project="klikandgo">
+                    <div class="showcase-tile-orb"></div>
+                    <span class="showcase-tile-cat">SaaS</span>
+                    <span class="showcase-tile-name">Klik&Go</span>
+                </a>
+                <a href="#bativio" class="showcase-tile liquid-glass" data-project="bativio">
+                    <div class="showcase-tile-orb"></div>
+                    <span class="showcase-tile-cat">Marketplace</span>
+                    <span class="showcase-tile-name">Bativio</span>
+                </a>
+                <a href="#invoquo" class="showcase-tile liquid-glass" data-project="invoquo">
+                    <div class="showcase-tile-orb"></div>
+                    <span class="showcase-tile-cat">Fintech</span>
+                    <span class="showcase-tile-name">Invoquo</span>
+                </a>
+                <a href="#ksav" class="showcase-tile liquid-glass" data-project="ksav">
+                    <div class="showcase-tile-orb"></div>
+                    <span class="showcase-tile-cat">SAV</span>
+                    <span class="showcase-tile-name">Klikphone SAV</span>
+                </a>
+                <a href="#pcmi13" class="showcase-tile liquid-glass" data-project="pcmi13">
+                    <div class="showcase-tile-orb"></div>
+                    <span class="showcase-tile-cat">Service</span>
+                    <span class="showcase-tile-name">MonPCMI13</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Marquee stack -->
+        <div class="container">
+            <div class="marquee reveal" style="--reveal-delay: 0.6s">
+                <div class="marquee-track">
+                    <span class="marquee-item">Next.js<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">React 19<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">TypeScript<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Tailwind v4<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">shadcn/ui<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Vercel<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Railway<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Stripe<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Spring Boot<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">PostgreSQL<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Sentry<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Pennylane API<span class="marquee-dot"></span></span>
+                    <!-- duplicate for seamless loop -->
+                    <span class="marquee-item">Next.js<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">React 19<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">TypeScript<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Tailwind v4<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">shadcn/ui<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Vercel<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Railway<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Stripe<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Spring Boot<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">PostgreSQL<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Sentry<span class="marquee-dot"></span></span>
+                    <span class="marquee-item">Pennylane API<span class="marquee-dot"></span></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         STATS
+    ══════════════════════════════════════════ -->
+    <section class="stats" id="stats">
+        <div class="container">
+            <div class="stats-card liquid-glass reveal">
+                <div class="stat">
+                    <div class="stat-value">05</div>
+                    <div class="stat-label">Produits en production, du SaaS au service de proximité</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value"><em>100%</em></div>
+                    <div class="stat-label">Conçus, codés et déployés en France</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">2026</div>
+                    <div class="stat-label">Prêts pour la réforme facturation électronique</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">∞</div>
+                    <div class="stat-label">Itérations. Aucun produit n'est figé.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         MANIFESTO
+    ══════════════════════════════════════════ -->
+    <section class="manifesto">
+        <div class="container">
+            <p class="manifesto-text" id="manifestoText">
+                On ne construit pas un produit pour faire plaisir aux ingénieurs. On le construit pour celui qui s'en sert tous les jours — un commerçant pressé, un artisan en chantier, un client qui veut juste que <em>ça marche</em>. Le reste, c'est du bruit.
+            </p>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         PROJECTS
+    ══════════════════════════════════════════ -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="eyebrow">Le catalogue · 2026</span>
+                <h2>Cinq produits, <em class="serif-italic" style="color: var(--accent);">cinq promesses</em>.</h2>
+                <p>Chaque projet répond à une frustration concrète d'un métier qu'on a observé de près. Pas de vapeur, que des produits qui tournent.</p>
+            </div>
+
+            <!-- ─────────────────────────────────
+                 PROJECT 1 — KLIK&GO
+            ───────────────────────────────── -->
+            <article class="project" id="klikandgo">
+                <div class="project-content reveal">
+                    <div class="project-meta">
+                        <span class="pill pill--live">Live</span>
+                        <span class="pill">SaaS · Click & Collect</span>
+                        <span class="pill">2025</span>
+                    </div>
+                    <h3 class="project-title">Klik<em>&</em>Go</h3>
+                    <p class="project-tagline">Le click & collect des commerçants de proximité, en deux clics.</p>
+                    <p class="project-desc">
+                        Une plateforme SaaS qui permet à n'importe quel commerçant de proposer commande en ligne et retrait en magasin — sans dev, sans complexité, sans abonnement à six chiffres. Catalogue en 5 minutes, paiements Stripe, dashboard temps réel.
+                    </p>
+                    <ul class="project-features">
+                        <li>Onboarding marchand en moins de 10 minutes</li>
+                        <li>Paiements Stripe Connect avec commission transparente</li>
+                        <li>Dashboard pro temps réel + impression bons de retrait</li>
+                        <li>App client mobile-first, sans installation</li>
+                    </ul>
+                    <div class="project-stack">
+                        <span class="stack-chip">Next.js 15</span>
+                        <span class="stack-chip">Stripe Connect</span>
+                        <span class="stack-chip">shadcn/ui</span>
+                        <span class="stack-chip">PostgreSQL</span>
+                        <span class="stack-chip">Vercel</span>
+                    </div>
+                    <a href="#" class="project-cta">
+                        Découvrir Klik&Go
+                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </a>
+                </div>
+
+                <div class="project-visual reveal liquid-glass">
+                    <div class="glow" style="background: radial-gradient(circle, var(--primary) 0%, transparent 60%);"></div>
+                    <div class="mock">
+                        <div class="mock-bar">
+                            <span class="mock-bar-dot" style="background:#FF6B6B"></span>
+                            <span class="mock-bar-dot" style="background:#FFD166"></span>
+                            <span class="mock-bar-dot" style="background:#00D4AA"></span>
+                            <span class="mock-bar-url">app.klikandgo.fr</span>
+                        </div>
+                        <div class="mock-content">
+                            <!-- Dashboard mock -->
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <div>
+                                    <div style="font-size:11px; color:var(--text-muted); letter-spacing:.1em; text-transform:uppercase; font-family:var(--mono);">Aujourd'hui</div>
+                                    <div style="font-size:22px; font-weight:600; margin-top:4px;">€ 1 247,80</div>
+                                </div>
+                                <div style="font-size:11px; padding:4px 10px; background:rgba(0,212,170,.12); color:var(--accent); border-radius:999px; font-family:var(--mono);">+ 18%</div>
+                            </div>
+                            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:4px;">
+                                <div style="padding:10px; background:var(--bg-elevated); border-radius:8px;"><div style="font-size:9px; color:var(--text-muted); font-family:var(--mono);">Commandes</div><div style="font-size:16px; font-weight:600; margin-top:2px;">23</div></div>
+                                <div style="padding:10px; background:var(--bg-elevated); border-radius:8px;"><div style="font-size:9px; color:var(--text-muted); font-family:var(--mono);">À retirer</div><div style="font-size:16px; font-weight:600; margin-top:2px;">7</div></div>
+                                <div style="padding:10px; background:var(--bg-elevated); border-radius:8px;"><div style="font-size:9px; color:var(--text-muted); font-family:var(--mono);">Panier moyen</div><div style="font-size:16px; font-weight:600; margin-top:2px;">€54</div></div>
+                            </div>
+                            <!-- Order list -->
+                            <div style="margin-top:8px; display:flex; flex-direction:column; gap:6px;">
+                                <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-elevated); border-radius:8px;">
+                                    <div style="width:32px; height:32px; border-radius:6px; background:linear-gradient(135deg, #6C63FF, #00D4AA); display:grid; place-items:center; font-size:10px; font-weight:600; color:#fff;">CL</div>
+                                    <div style="flex:1; min-width:0">
+                                        <div style="font-size:12px; font-weight:500;">Camille L.</div>
+                                        <div style="font-size:10px; color:var(--text-muted); font-family:var(--mono);">#KG-2487 · 14h32</div>
+                                    </div>
+                                    <span style="font-size:10px; padding:3px 8px; background:rgba(0,212,170,.15); color:var(--accent); border-radius:999px; font-family:var(--mono);">PRÊT</span>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-elevated); border-radius:8px;">
+                                    <div style="width:32px; height:32px; border-radius:6px; background:linear-gradient(135deg, #FF8551, #FF6B6B); display:grid; place-items:center; font-size:10px; font-weight:600; color:#fff;">TD</div>
+                                    <div style="flex:1; min-width:0">
+                                        <div style="font-size:12px; font-weight:500;">Thomas D.</div>
+                                        <div style="font-size:10px; color:var(--text-muted); font-family:var(--mono);">#KG-2486 · 14h18</div>
+                                    </div>
+                                    <span style="font-size:10px; padding:3px 8px; background:rgba(255,133,81,.15); color:var(--warm); border-radius:999px; font-family:var(--mono);">EN COURS</span>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:10px; padding:10px; background:var(--bg-elevated); border-radius:8px;">
+                                    <div style="width:32px; height:32px; border-radius:6px; background:linear-gradient(135deg, #FF6B9D, #6C63FF); display:grid; place-items:center; font-size:10px; font-weight:600; color:#fff;">MR</div>
+                                    <div style="flex:1; min-width:0">
+                                        <div style="font-size:12px; font-weight:500;">Marie R.</div>
+                                        <div style="font-size:10px; color:var(--text-muted); font-family:var(--mono);">#KG-2485 · 14h02</div>
+                                    </div>
+                                    <span style="font-size:10px; padding:3px 8px; background:rgba(140,150,200,.15); color:var(--text-secondary); border-radius:999px; font-family:var(--mono);">PAYÉ</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ─────────────────────────────────
+                 PROJECT 2 — BATIVIO
+            ───────────────────────────────── -->
+            <article class="project reverse" id="bativio">
+                <div class="project-content reveal">
+                    <div class="project-meta">
+                        <span class="pill pill--live">Live</span>
+                        <span class="pill">Marketplace · Bâtiment</span>
+                        <span class="pill">2025</span>
+                    </div>
+                    <h3 class="project-title">Bativ<em>io</em></h3>
+                    <p class="project-tagline">L'annuaire des artisans du bâtiment, qui ne ment pas.</p>
+                    <p class="project-desc">
+                        Plateforme de mise en relation entre particuliers et artisans qualifiés — plombier, électricien, peintre, maçon, couvreur. Vitrines pro générées automatiquement, géolocalisées ville par ville, optimisées pour le SEO local.
+                    </p>
+                    <ul class="project-features">
+                        <li>Vitrines artisan auto-générées (architecture multi-agent)</li>
+                        <li>Maillage SEO local ville par ville, indexé par Google</li>
+                        <li>Demandes de devis qualifiées, sans intermédiaire abusif</li>
+                        <li>Espace pro avec photos chantier et avis vérifiés</li>
+                    </ul>
+                    <div class="project-stack">
+                        <span class="stack-chip">Next.js</span>
+                        <span class="stack-chip">Vercel</span>
+                        <span class="stack-chip">PostgreSQL</span>
+                        <span class="stack-chip">AI Generation</span>
+                        <span class="stack-chip">SEO local</span>
+                    </div>
+                    <a href="https://bativio.fr" class="project-cta">
+                        Visiter Bativio
+                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </a>
+                </div>
+
+                <div class="project-visual reveal liquid-glass">
+                    <div class="glow" style="background: radial-gradient(circle, #C4531A 0%, transparent 60%);"></div>
+                    <div class="mock">
+                        <div class="mock-bar">
+                            <span class="mock-bar-dot" style="background:#FF6B6B"></span>
+                            <span class="mock-bar-dot" style="background:#FFD166"></span>
+                            <span class="mock-bar-dot" style="background:#00D4AA"></span>
+                            <span class="mock-bar-url">bativio.fr</span>
+                            <span class="mock-live-badge">LIVE</span>
+                        </div>
+                        <img class="mock-img" src="assets/bativio-hero.jpg" alt="Bativio — annuaire d'artisans du bâtiment" loading="lazy" />
+                    </div>
+                </div>
+            </article>
+
+            <!-- ─────────────────────────────────
+                 PROJECT 3 — INVOQUO
+            ───────────────────────────────── -->
+            <article class="project" id="invoquo">
+                <div class="project-content reveal">
+                    <div class="project-meta">
+                        <span class="pill pill--beta">Beta</span>
+                        <span class="pill">SaaS · Facturation</span>
+                        <span class="pill">2026</span>
+                    </div>
+                    <h3 class="project-title">Invo<em>quo</em></h3>
+                    <p class="project-tagline">Facturation conforme NF525, prête pour la réforme 2026.</p>
+                    <p class="project-desc">
+                        Logiciel de facturation 100% conforme aux normes françaises (NF525, ISCA, e-invoicing, Pennylane PA). Pensé pour les TPE/PME qui veulent passer le cap de la réforme facturation électronique sans douleur, ni cabinet de conseil à 800 €/jour.
+                    </p>
+                    <ul class="project-features">
+                        <li>Chaînage cryptographique HMAC pour inaltérabilité</li>
+                        <li>Auto-certification ISCA et JET (Journal Évènements Techniques)</li>
+                        <li>Intégration Pennylane PA + connectivité Peppol</li>
+                        <li>Export FEC conforme BOI-TVA-DECLA-30-10-30</li>
+                    </ul>
+                    <div class="project-stack">
+                        <span class="stack-chip">Next.js</span>
+                        <span class="stack-chip">Pennylane API</span>
+                        <span class="stack-chip">Factur-X</span>
+                        <span class="stack-chip">HMAC-SHA256</span>
+                        <span class="stack-chip">Spring Boot</span>
+                    </div>
+                    <a href="#" class="project-cta">
+                        Rejoindre la beta
+                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </a>
+                </div>
+
+                <div class="project-visual reveal liquid-glass">
+                    <div class="glow" style="background: radial-gradient(circle, #0EA5E9 0%, transparent 60%);"></div>
+                    <div class="mock">
+                        <div class="mock-bar">
+                            <span class="mock-bar-dot" style="background:#FF6B6B"></span>
+                            <span class="mock-bar-dot" style="background:#FFD166"></span>
+                            <span class="mock-bar-dot" style="background:#00D4AA"></span>
+                            <span class="mock-bar-url">app.invoquo.fr/factures</span>
+                        </div>
+                        <div class="mock-content">
+                            <!-- Invoice header -->
+                            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                                <div>
+                                    <div style="font-family:var(--mono); font-size:10px; color:var(--text-muted); letter-spacing:.1em;">FACTURE</div>
+                                    <div style="font-size:18px; font-weight:600; margin-top:2px;">F-2026-0247</div>
+                                </div>
+                                <div style="text-align:right">
+                                    <div style="font-size:10px; color:var(--text-muted); font-family:var(--mono);">Total TTC</div>
+                                    <div style="font-size:18px; font-weight:600; margin-top:2px; color:#0EA5E9;">€ 4 800,00</div>
+                                </div>
+                            </div>
+
+                            <!-- Status badges -->
+                            <div style="display:flex; gap:6px; margin-top:4px;">
+                                <span style="font-size:9px; padding:3px 8px; background:rgba(0,212,170,.15); color:var(--accent); border-radius:6px; font-family:var(--mono); display:flex; align-items:center; gap:4px;">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" class="svg-stroke"><path d="M20 6 9 17l-5-5"/></svg>
+                                    NF525
+                                </span>
+                                <span style="font-size:9px; padding:3px 8px; background:rgba(14,165,233,.15); color:#0EA5E9; border-radius:6px; font-family:var(--mono); display:flex; align-items:center; gap:4px;">
+                                    <svg width="10" height="10" viewBox="0 0 24 24" class="svg-stroke"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                    SIGNÉE
+                                </span>
+                                <span style="font-size:9px; padding:3px 8px; background:rgba(108,99,255,.15); color:var(--primary-light); border-radius:6px; font-family:var(--mono);">PEPPOL</span>
+                            </div>
+
+                            <!-- Lines -->
+                            <div style="margin-top:8px; padding:12px; background:var(--bg-elevated); border-radius:8px;">
+                                <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--border); font-size:10px; color:var(--text-muted); font-family:var(--mono);">
+                                    <span>DÉSIGNATION</span><span>HT</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; padding:8px 0; font-size:12px;">
+                                    <span>Audit conformité NF525</span><span>1 200,00 €</span>
+                                </div>
+                                <div style="display:flex; justify-content:space-between; padding:8px 0; font-size:12px; border-top:1px solid var(--border);">
+                                    <span>Intégration Pennylane PA</span><span>2 800,00 €</span>
+                                </div>
+                            </div>
+
+                            <!-- HMAC chain -->
+                            <div style="margin-top:8px; padding:10px; background:rgba(108,99,255,.05); border:1px dashed var(--border-glow); border-radius:8px;">
+                                <div style="font-size:9px; color:var(--text-muted); font-family:var(--mono); letter-spacing:.08em;">CHAÎNAGE HMAC</div>
+                                <div style="font-family:var(--mono); font-size:9px; color:var(--primary-light); margin-top:4px; word-break:break-all;">a3f9c2…d847e1 ← 7b8c4d…e29a01</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- ─────────────────────────────────
+                 PROJECT 4 — KLIKPHONE SAV
+            ───────────────────────────────── -->
+            <article class="project reverse" id="ksav">
+                <div class="project-content reveal">
+                    <div class="project-meta">
+                        <span class="pill pill--live">Live</span>
+                        <span class="pill">Service · Téléphonie</span>
+                        <span class="pill">2024</span>
+                    </div>
+                    <h3 class="project-title">Klikphone <em>SAV</em></h3>
+                    <p class="project-tagline">Le SAV smartphone, simplifié pour de vrai.</p>
+                    <p class="project-desc">
+                        Service après-vente téléphonie complet — dépôt en boutique, envoi postal, diagnostic, devis, réparation, retour. Suivi client temps réel à chaque étape, plateforme métier pour les techniciens, reporting pour le siège.
+                    </p>
+                    <ul class="project-features">
+                        <li>Suivi client temps réel (SMS + email à chaque étape)</li>
+                        <li>Application métier technicien avec scan barcode</li>
+                        <li>Dashboard reporting siège + analytics</li>
+                        <li>Devis transparent, signature électronique intégrée</li>
+                    </ul>
+                    <div class="project-stack">
+                        <span class="stack-chip">Spring Boot</span>
+                        <span class="stack-chip">React</span>
+                        <span class="stack-chip">Railway</span>
+                        <span class="stack-chip">PostgreSQL</span>
+                        <span class="stack-chip">Twilio</span>
+                    </div>
+                    <a href="#" class="project-cta">
+                        Voir Klikphone SAV
+                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </a>
+                </div>
+
+                <div class="project-visual reveal liquid-glass">
+                    <div class="glow" style="background: radial-gradient(circle, #00D4AA 0%, transparent 60%);"></div>
+                    <div class="mock">
+                        <div class="mock-bar">
+                            <span class="mock-bar-dot" style="background:#FF6B6B"></span>
+                            <span class="mock-bar-dot" style="background:#FFD166"></span>
+                            <span class="mock-bar-dot" style="background:#00D4AA"></span>
+                            <span class="mock-bar-url">app.klikphone.com</span>
+                            <span class="mock-live-badge">LIVE</span>
+                        </div>
+                        <img class="mock-img" src="assets/ksav-dashboard.jpg" alt="Klikphone SAV — Tableau de bord" loading="lazy" />
+                    </div>
+                    <div class="mock-mobile-frame">
+                        <img src="assets/ksav-mobile-suivi.jpg" alt="Klikphone SAV — suivi mobile" loading="lazy" />
+                    </div>
+                </div>
+            </article>
+
+            <!-- ─────────────────────────────────
+                 PROJECT 5 — MONPCMI13
+            ───────────────────────────────── -->
+            <article class="project" id="pcmi13">
+                <div class="project-content reveal">
+                    <div class="project-meta">
+                        <span class="pill pill--new">Nouveau</span>
+                        <span class="pill">Service · Informatique</span>
+                        <span class="pill">2026</span>
+                    </div>
+                    <h3 class="project-title">MonPC<em>MI13</em></h3>
+                    <p class="project-tagline">Réparation PC à Marseille 13e, sans <em class="serif-italic" style="color: var(--rose);">jargon</em>.</p>
+                    <p class="project-desc">
+                        Service de proximité pour la réparation et la maintenance d'ordinateurs PC dans le 13e arrondissement de Marseille. Diagnostic gratuit, devis sous 24h, intervention rapide à domicile ou en atelier. Pour particuliers et TPE.
+                    </p>
+                    <ul class="project-features">
+                        <li>Diagnostic gratuit sous 24h</li>
+                        <li>Intervention à domicile ou en atelier</li>
+                        <li>Devis transparent, paiement après réparation</li>
+                        <li>Récupération de données spécialisée</li>
+                    </ul>
+                    <div class="project-stack">
+                        <span class="stack-chip">Next.js</span>
+                        <span class="stack-chip">Booking system</span>
+                        <span class="stack-chip">SEO local</span>
+                        <span class="stack-chip">Marseille 13e</span>
+                    </div>
+                    <a href="#" class="project-cta">
+                        Visiter MonPCMI13
+                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </a>
+                </div>
+
+                <div class="project-visual reveal liquid-glass">
+                    <div class="glow" style="background: radial-gradient(circle, #FF6B6B 0%, transparent 60%);"></div>
+                    <div class="mock">
+                        <div class="mock-bar">
+                            <span class="mock-bar-dot" style="background:#FF6B6B"></span>
+                            <span class="mock-bar-dot" style="background:#FFD166"></span>
+                            <span class="mock-bar-dot" style="background:#00D4AA"></span>
+                            <span class="mock-bar-url">monpcmi13.fr/intervention</span>
+                        </div>
+                        <div class="mock-content">
+                            <!-- Hero CTA-like -->
+                            <div style="padding:14px; background:linear-gradient(135deg, rgba(255,107,107,.10), rgba(140,31,31,.10)); border-radius:10px; border:1px solid rgba(255,107,107,.20);">
+                                <div style="font-family:var(--mono); font-size:10px; color:var(--rose); letter-spacing:.1em;">DIAGNOSTIC</div>
+                                <div style="font-size:18px; font-weight:600; margin-top:4px;">Gratuit · 24h chrono</div>
+                                <div style="font-size:11px; color:var(--text-secondary); margin-top:6px;">Marseille 13ᵉ et environs</div>
+                            </div>
+
+                            <!-- Service cards -->
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                                <div style="padding:12px; background:var(--bg-elevated); border-radius:8px;">
+                                    <div style="width:24px; height:24px; border-radius:6px; background:rgba(255,107,107,.15); display:grid; place-items:center; color:var(--rose);">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                                    </div>
+                                    <div style="font-size:11px; font-weight:600; margin-top:8px;">Écran cassé</div>
+                                    <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">dès 79 €</div>
+                                </div>
+                                <div style="padding:12px; background:var(--bg-elevated); border-radius:8px;">
+                                    <div style="width:24px; height:24px; border-radius:6px; background:rgba(0,212,170,.15); display:grid; place-items:center; color:var(--accent);">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                                    </div>
+                                    <div style="font-size:11px; font-weight:600; margin-top:8px;">PC très lent</div>
+                                    <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">dès 49 €</div>
+                                </div>
+                                <div style="padding:12px; background:var(--bg-elevated); border-radius:8px;">
+                                    <div style="width:24px; height:24px; border-radius:6px; background:rgba(108,99,255,.15); display:grid; place-items:center; color:var(--primary-light);">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
+                                    </div>
+                                    <div style="font-size:11px; font-weight:600; margin-top:8px;">Récup. données</div>
+                                    <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">sur devis</div>
+                                </div>
+                                <div style="padding:12px; background:var(--bg-elevated); border-radius:8px;">
+                                    <div style="width:24px; height:24px; border-radius:6px; background:rgba(255,133,81,.15); display:grid; place-items:center; color:var(--warm);">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M9 12h6M12 9v6"/><circle cx="12" cy="12" r="10"/></svg>
+                                    </div>
+                                    <div style="font-size:11px; font-weight:600; margin-top:8px;">Virus / malware</div>
+                                    <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">dès 39 €</div>
+                                </div>
+                            </div>
+
+                            <!-- CTA -->
+                            <div style="display:flex; gap:8px; padding:10px; background:var(--bg-elevated); border-radius:10px; align-items:center;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" class="svg-stroke" style="color:var(--rose)"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                <span style="font-size:11px;">Marseille 13e · La Rose, Saint-Mitre, Malpassé</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         GALLERY (horizontal scroll showcase)
+    ══════════════════════════════════════════ -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="eyebrow">Galerie · Captures réelles</span>
+                <h2>Un produit ne se résume pas <em style="color: var(--accent);">à un dashboard</em>.</h2>
+                <p>Quelques pages réelles de nos apps en production. Toutes pensées, codées et déployées chez Klik&Dev.</p>
+            </div>
+            <div class="gallery-hint reveal" style="--reveal-delay: 0.2s">
+                Faites défiler
+                <span class="gallery-hint-arrow">
+                    <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </span>
+            </div>
+        </div>
+
+        <div class="gallery-scroll reveal" style="--reveal-delay: 0.3s">
+            <div class="gallery-track">
+
+                <figure class="gallery-card">
+                    <span class="gallery-badge gallery-badge--ksav">Klikphone SAV</span>
+                    <div class="gallery-card-frame">
+                        <img src="assets/ksav-homepage.jpg" alt="Klikphone SAV — page d'accueil" loading="lazy" />
+                    </div>
+                    <figcaption>Page d'accueil · choix du parcours <span class="gallery-num">01 / 08</span></figcaption>
+                </figure>
+
+                <figure class="gallery-card">
+                    <span class="gallery-badge gallery-badge--ksav">Klikphone SAV</span>
+                    <div class="gallery-card-frame">
+                        <img src="assets/ksav-dashboard.jpg" alt="Klikphone SAV — Tableau de bord" loading="lazy" />
+                    </div>
+                    <figcaption>Tableau de bord pro · vue temps réel <span class="gallery-num">02 / 08</span></figcaption>
+                </figure>
+
+                <figure class="gallery-card">
+                    <span class="gallery-badge gallery-badge--ksav">Klikphone SAV</span>
+                    <div class="gallery-card-frame">
+                        <img src="assets/ksav-suivi.jpg" alt="Suivi de réparation client" loading="lazy" />
+                    </div>
+                    <figcaption>Suivi de réparation côté client <span class="gallery-num">03 / 08</span></figcaption>
+                </figure>
+
+                <figure class="gallery-card">
+                    <span class="gallery-badge gallery-badge--ksav">Klikphone SAV</span>
+                    <div class="gallery-card-frame">
+                        <img src="assets/ksav-reporting.jpg" alt="Reporting Klikphone" loading="lazy" />
+                    </div>
+                    <figcaption>Reporting & KPIs siège <span class="gallery-num">04 / 08</span></figcaption>
+                </figure>
+
+                <figure class="gallery-card">
+                    <span class="gallery-badge gallery-badge--ksav">Klikphone SAV</span>
+                    <div class="gallery-card-frame">
+                        <img src="assets/ksav-reporting-graphs.jpg" alt="Graphiques performance" loading="lazy" />
+                    </div>
+                    <figcaption>Graphiques performance & tendances <span class="gallery-num">05 / 08</span></figcaption>
+                </figure>
+
+                <figure class="gallery-card">
+                    <span class="gallery-badge gallery-badge--ksav">Klikphone SAV</span>
+                    <div class="gallery-card-frame">
+                        <img src="assets/ksav-depot.jpg" alt="Formulaire dépôt en boutique" loading="lazy" />
+                    </div>
+                    <figcaption>Formulaire dépôt en boutique <span class="gallery-num">06 / 08</span></figcaption>
+                </figure>
+
+                <figure class="gallery-card">
+                    <span class="gallery-badge gallery-badge--ksav">Klikphone SAV</span>
+                    <div class="gallery-card-frame">
+                        <img src="assets/ksav-avis-google.jpg" alt="Module avis Google" loading="lazy" />
+                    </div>
+                    <figcaption>Avis Google · gestion intégrée <span class="gallery-num">07 / 08</span></figcaption>
+                </figure>
+
+                <figure class="gallery-card">
+                    <span class="gallery-badge gallery-badge--bativio">Bativio</span>
+                    <div class="gallery-card-frame">
+                        <img src="assets/bativio-artisans.jpg" alt="Bativio — listing artisans" loading="lazy" />
+                    </div>
+                    <figcaption>Annuaire artisans · résultats par ville <span class="gallery-num">08 / 08</span></figcaption>
+                </figure>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         APPROACH
+    ══════════════════════════════════════════ -->
+    <section id="approach">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="eyebrow">Comment on bosse</span>
+                <h2>Trois principes, <em class="serif-italic" style="color: var(--accent);">aucun compromis</em>.</h2>
+                <p>On a appris (à nos dépens) qu'un produit qui dure se construit sur des choix simples, défendus dans le temps. Voilà les trois qu'on tient.</p>
+            </div>
+
+            <div class="approach-grid">
+                <div class="approach-card liquid-glass reveal">
+                    <div class="approach-num">01</div>
+                    <h3>Design <em>d'abord</em>.</h3>
+                    <p>L'interface est l'unique chose que voient les utilisateurs. Avant la moindre ligne de code, on conçoit le parcours, on prototype, on critique. Tout le reste découle de là.</p>
+                    <div class="approach-card-footer">Figma · Design system · shadcn/ui</div>
+                </div>
+                <div class="approach-card liquid-glass reveal" style="--reveal-delay: 0.1s">
+                    <div class="approach-num">02</div>
+                    <h3>Build <em>solide</em>.</h3>
+                    <p>Stack moderne, typée, testée. Next.js, TypeScript strict, PostgreSQL, observabilité Sentry dès le jour 1. Pas de raccourci qu'on regrettera dans six mois.</p>
+                    <div class="approach-card-footer">Next.js · TypeScript · Sentry</div>
+                </div>
+                <div class="approach-card liquid-glass reveal" style="--reveal-delay: 0.2s">
+                    <div class="approach-num">03</div>
+                    <h3>Ship <em>vite</em>.</h3>
+                    <p>Mise en prod en continu sur Vercel et Railway. Un produit qui n'est pas dans les mains des utilisateurs ne sert à rien — même imparfait, on livre et on itère.</p>
+                    <div class="approach-card-footer">Vercel · Railway · CI/CD</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         CTA
+    ══════════════════════════════════════════ -->
+    <section id="contact">
+        <div class="container">
+            <div class="cta-wrap">
+                <div class="cta-glow"></div>
+                <span class="cta-eyebrow eyebrow reveal">Parlons de votre projet</span>
+                <h2 class="cta-title reveal" style="--reveal-delay: 0.1s">
+                    Une idée. <em>Un café.</em><br>
+                    Et on voit ce qu'on en fait.
+                </h2>
+                <p class="cta-sub reveal" style="--reveal-delay: 0.2s">
+                    Vous avez un produit en tête, un service à digitaliser, ou juste une frustration métier à transformer en SaaS ? Écrivez-nous. Réponse sous 24h, ouvré ou non.
+                </p>
+                <form class="cta-form liquid-glass reveal" style="--reveal-delay: 0.3s" onsubmit="event.preventDefault(); window.location.href='mailto:contact@klikphone.com?subject=Projet&body='+encodeURIComponent('Email: '+this.email.value);">
+                    <input type="email" name="email" placeholder="vous@entreprise.com" required>
+                    <button type="submit">
+                        Envoyer
+                        <svg width="13" height="13" viewBox="0 0 24 24" class="svg-stroke"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                     </button>
-                </div>
-                <p class="coming-soon__form-note">Pas de spam. Juste une notification le jour J.</p>
-                <div class="coming-soon__success" id="comingSoonSuccess" style="display:none;">
-                    <span>✅</span> Merci ! Vous serez parmi les premiers à découvrir ce projet.
+                </form>
+                <div class="cta-links reveal" style="--reveal-delay: 0.4s">
+                    <a href="mailto:contact@klikphone.com" class="cta-link">
+                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/></svg>
+                        contact@klikphone.com
+                    </a>
+                    <a href="#" class="cta-link">
+                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        Marseille, FR
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ═══ ABOUT ═══ -->
-    <section class="section" id="apropos">
-        <div class="section__label">À propos</div>
-        <h2 class="section__title">Une équipe, <span class="gradient-text">toutes les compétences</span></h2>
-        <p class="section__subtitle">
-            Développeurs, designers UI/UX, spécialistes IA — nous réunissons 
-            les talents nécessaires pour transformer vos idées en produits concrets.
-        </p>
-
-        <div class="about-grid">
-            <div class="about-card reveal">
-                <div class="about-card__icon">👨‍💻</div>
-                <h3 class="about-card__title">Développement Full-Stack</h3>
-                <p class="about-card__desc">
-                    Des développeurs expérimentés qui maîtrisent les technologies modernes : 
-                    applications web, mobile, API, bases de données. Du front au back, on gère tout.
-                </p>
+    <!-- ══════════════════════════════════════════
+         FOOTER
+    ══════════════════════════════════════════ -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <span class="nav-brand-mark">K</span>
+                        Klik<span style="color: var(--text-muted)">/</span>Dev
+                    </div>
+                    <p class="footer-tagline">Studio indépendant de SaaS web et services pour pros. Conçu, codé et déployé en France.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Produits</h4>
+                    <ul>
+                        <li><a href="#klikandgo">Klik&Go</a></li>
+                        <li><a href="#bativio">Bativio</a></li>
+                        <li><a href="#invoquo">Invoquo</a></li>
+                        <li><a href="#ksav">Klikphone SAV</a></li>
+                        <li><a href="#pcmi13">MonPCMI13</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Studio</h4>
+                    <ul>
+                        <li><a href="#approach">Approche</a></li>
+                        <li><a href="#stats">Chiffres</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Légal</h4>
+                    <ul>
+                        <li><a href="#">Mentions légales</a></li>
+                        <li><a href="#">CGU</a></li>
+                        <li><a href="#">Confidentialité</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="about-card reveal">
-                <div class="about-card__icon">🎨</div>
-                <h3 class="about-card__title">Design UI/UX</h3>
-                <p class="about-card__desc">
-                    Des spécialistes de l'expérience utilisateur qui conçoivent des interfaces 
-                    intuitives et élégantes. Chaque pixel est pensé pour vos utilisateurs.
-                </p>
-            </div>
-            <div class="about-card reveal">
-                <div class="about-card__icon">🤖</div>
-                <h3 class="about-card__title">Intelligence Artificielle</h3>
-                <p class="about-card__desc">
-                    Nous intégrons l'IA au cœur de nos solutions : agents intelligents, 
-                    automatisation, analyse de données. La tech de demain, déployée aujourd'hui.
-                </p>
-            </div>
-            <div class="about-card reveal">
-                <div class="about-card__icon">⚡</div>
-                <h3 class="about-card__title">Sur mesure uniquement</h3>
-                <p class="about-card__desc">
-                    Pas de solution générique. Chaque logiciel est développé 
-                    spécifiquement pour répondre à vos besoins métier.
-                </p>
-            </div>
-            <div class="about-card reveal">
-                <div class="about-card__icon">🛡️</div>
-                <h3 class="about-card__title">Fiabilité & performance</h3>
-                <p class="about-card__desc">
-                    Des technologies robustes et une architecture pensée pour scaler. 
-                    Vos applications tiennent la charge et évoluent avec vous.
-                </p>
-            </div>
-            <div class="about-card reveal">
-                <div class="about-card__icon">🤝</div>
-                <h3 class="about-card__title">Accompagnement total</h3>
-                <p class="about-card__desc">
-                    De l'idée au déploiement, et bien après. 
-                    Maintenance, évolutions, support — on ne vous lâche pas.
-                </p>
+            <div class="footer-bottom">
+                <span>© 2026 Klik&Dev — Tous droits réservés</span>
+                <span class="mono" style="font-size:11px; letter-spacing:.1em; text-transform:uppercase;">Made in Marseille, FR</span>
             </div>
         </div>
-    </section>
-
-    <!-- ═══ CONTACT ═══ -->
-    <section class="section" id="contact">
-        <div class="section__label">Contact</div>
-        <h2 class="section__title">Un projet en tête ?<br><span class="gradient-text">Parlons-en.</span></h2>
-
-        <div class="contact-wrapper">
-            <div class="contact-info">
-                <h3 class="contact-info__title">Prenons un café ☕</h3>
-                <p class="contact-info__text">
-                    Que vous ayez une idée précise ou juste un besoin à résoudre, 
-                    on est là pour en discuter. Pas de jargon, pas de blabla — 
-                    juste des solutions concrètes.
-                </p>
-                <div class="contact-info__items">
-                    <div class="contact-info__item">
-                        <div class="contact-info__item-icon">📧</div>
-                        <div>
-                            <div class="contact-info__item-label">Email</div>
-                            <div class="contact-info__item-text">contact@klikdev.fr</div>
-                        </div>
-                    </div>
-                    <div class="contact-info__item">
-                        <div class="contact-info__item-icon">📍</div>
-                        <div>
-                            <div class="contact-info__item-label">Localisation</div>
-                            <div class="contact-info__item-text">France</div>
-                        </div>
-                    </div>
-                    <div class="contact-info__item">
-                        <div class="contact-info__item-icon">⏱️</div>
-                        <div>
-                            <div class="contact-info__item-label">Réponse</div>
-                            <div class="contact-info__item-text">Sous 24 heures</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <form class="contact-form" onsubmit="event.preventDefault(); alert('Message envoyé ! (démo)')">
-                <div class="contact-form__row">
-                    <div class="contact-form__group">
-                        <label class="contact-form__label">Prénom</label>
-                        <input type="text" class="contact-form__input" placeholder="Jean">
-                    </div>
-                    <div class="contact-form__group">
-                        <label class="contact-form__label">Nom</label>
-                        <input type="text" class="contact-form__input" placeholder="Dupont">
-                    </div>
-                </div>
-                <div class="contact-form__group">
-                    <label class="contact-form__label">Email</label>
-                    <input type="email" class="contact-form__input" placeholder="jean@entreprise.fr">
-                </div>
-                <div class="contact-form__group">
-                    <label class="contact-form__label">Entreprise</label>
-                    <input type="text" class="contact-form__input" placeholder="Nom de votre société">
-                </div>
-                <div class="contact-form__group">
-                    <label class="contact-form__label">Votre message</label>
-                    <textarea class="contact-form__textarea" placeholder="Décrivez votre projet ou votre besoin..."></textarea>
-                </div>
-                <button type="submit" class="btn btn--primary">
-                    Envoyer le message
-                    <span class="btn__arrow">→</span>
-                </button>
-            </form>
-        </div>
-    </section>
-
-    <!-- ═══ FOOTER ═══ -->
-    <footer class="footer">
-        <p class="footer__text">
-            © 2025 <span>Klik&Dev</span> — Développement logiciel sur mesure. Tous droits réservés.
-        </p>
     </footer>
 
-    <!-- ═══ SCROLL REVEAL SCRIPT ═══ -->
+    <!-- ══════════════════════════════════════════
+         SCRIPTS
+    ══════════════════════════════════════════ -->
     <script>
-        // Coming soon email form
-        function handleComingSoon() {
-            const email = document.getElementById('comingSoonEmail').value;
-            if (!email || !email.includes('@')) {
-                document.getElementById('comingSoonEmail').style.borderColor = '#FF6B6B';
-                return;
-            }
-            document.getElementById('comingSoonForm').style.display = 'none';
-            document.querySelector('.coming-soon__form-note').style.display = 'none';
-            document.getElementById('comingSoonSuccess').style.display = 'flex';
-            
-            // Store email locally (replace with real backend later)
-            const emails = JSON.parse(localStorage.getItem('klikdev_waitlist') || '[]');
-            emails.push({ email, date: new Date().toISOString() });
-            localStorage.setItem('klikdev_waitlist', JSON.stringify(emails));
-        }
-
-        // Allow Enter key on email input
-        document.addEventListener('DOMContentLoaded', function() {
-            const emailInput = document.getElementById('comingSoonEmail');
-            if (emailInput) {
-                emailInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') handleComingSoon();
-                });
-                emailInput.addEventListener('input', function() {
-                    this.style.borderColor = '';
-                });
-            }
-        });
-
-        // Tab switching for product screenshots
-        function switchTab(group, index) {
-            const container = document.getElementById(group + '-screenshots');
-            if (!container) return;
-            // Find the parent card to scope tab buttons
-            const card = container.closest('.product-card--full');
-            card.querySelectorAll('.product-tab').forEach((tab, i) => {
-                tab.classList.toggle('active', i === index);
-            });
-            container.querySelectorAll('.product-screenshot').forEach((shot, i) => {
-                shot.classList.toggle('active', i === index);
-            });
-        }
-
-        // Intersection Observer for scroll animations
-        const observer = new IntersectionObserver((entries) => {
+        // ───────────────────────────────────────
+        // REVEAL on scroll (IntersectionObserver)
+        // ───────────────────────────────────────
+        const reveals = document.querySelectorAll('.reveal');
+        const io = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.classList.add('in');
+                    io.unobserve(entry.target);
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -60px 0px'
-        });
+        }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+        reveals.forEach(el => io.observe(el));
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // Smooth scroll for nav links
-        document.querySelectorAll('.navbar__links a').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = document.querySelector(link.getAttribute('href'));
-                target?.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-
-        // Navbar background on scroll
+        // ───────────────────────────────────────
+        // NAV scroll state
+        // ───────────────────────────────────────
+        const nav = document.getElementById('nav');
+        let lastScroll = 0;
         window.addEventListener('scroll', () => {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) {
-                navbar.style.background = 'rgba(6, 9, 15, 0.95)';
-            } else {
-                navbar.style.background = 'rgba(6, 9, 15, 0.8)';
-            }
+            const y = window.scrollY;
+            if (y > 40) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+            lastScroll = y;
+        }, { passive: true });
+
+        // ───────────────────────────────────────
+        // Mobile menu toggle
+        // ───────────────────────────────────────
+        const burger = document.getElementById('navBurger');
+        const mobileMenu = document.getElementById('navMobile');
+        if (burger && mobileMenu) {
+            burger.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+            });
+            mobileMenu.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+            });
+        }
+
+        // ───────────────────────────────────────
+        // Manifesto — scroll-driven word reveal
+        // ───────────────────────────────────────
+        const manifesto = document.getElementById('manifestoText');
+        if (manifesto && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            // Split text into spans (preserving <em> tags)
+            const wrapTextNodes = (node) => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const frag = document.createDocumentFragment();
+                    node.textContent.split(/(\s+)/).forEach(part => {
+                        if (part.trim() === '') {
+                            frag.appendChild(document.createTextNode(part));
+                        } else {
+                            const span = document.createElement('span');
+                            span.className = 'word';
+                            span.textContent = part;
+                            frag.appendChild(span);
+                        }
+                    });
+                    node.parentNode.replaceChild(frag, node);
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    Array.from(node.childNodes).forEach(wrapTextNodes);
+                }
+            };
+            wrapTextNodes(manifesto);
+
+            const words = manifesto.querySelectorAll('.word');
+            const onScroll = () => {
+                const rect = manifesto.getBoundingClientRect();
+                const vh = window.innerHeight;
+                // progress: 0 when section enters bottom, 1 when its top reaches viewport top
+                const start = vh * 0.85;
+                const end = vh * 0.2;
+                const total = rect.height + (start - end);
+                const scrolled = start - rect.top;
+                const progress = Math.max(0, Math.min(1, scrolled / total));
+                const litCount = Math.floor(progress * words.length);
+                words.forEach((w, i) => {
+                    w.classList.toggle('lit', i < litCount);
+                });
+            };
+            window.addEventListener('scroll', onScroll, { passive: true });
+            onScroll();
+        } else if (manifesto) {
+            // reduced motion: just show everything
+            manifesto.style.color = 'var(--text)';
+        }
+
+        // ───────────────────────────────────────
+        // Parallax on orbs (subtle)
+        // ───────────────────────────────────────
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const orbs = document.querySelectorAll('.orb');
+            window.addEventListener('scroll', () => {
+                const y = window.scrollY;
+                orbs.forEach((orb, i) => {
+                    const speed = (i + 1) * 0.05;
+                    orb.style.transform = `translate3d(0, ${y * speed}px, 0)`;
+                });
+            }, { passive: true });
+        }
+
+        // ───────────────────────────────────────
+        // Showcase tile hover stagger
+        // ───────────────────────────────────────
+        const tiles = document.querySelectorAll('.showcase-tile');
+        tiles.forEach((tile, i) => {
+            tile.style.transitionDelay = `${i * 0.04}s`;
         });
     </script>
-
 </body>
 </html>
