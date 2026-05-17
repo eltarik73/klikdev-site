@@ -570,6 +570,32 @@
             top: 30%;
             left: 30%;
             pointer-events: none;
+            opacity: 0.55;
+        }
+        .showcase-tile-cat,
+        .showcase-tile-name { position: relative; z-index: 2; }
+        .showcase-tile-thumb {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 78%;
+            aspect-ratio: 5 / 4;
+            object-fit: cover;
+            object-position: top left;
+            border-radius: 10px;
+            box-shadow:
+                0 14px 28px rgba(0, 0, 0, 0.45),
+                0 0 0 1px rgba(255, 255, 255, 0.08);
+            z-index: 1;
+            transition: transform var(--t-base), box-shadow var(--t-base);
+            display: block;
+        }
+        .showcase-tile:hover .showcase-tile-thumb {
+            transform: translate(-50%, -53%) scale(1.05);
+            box-shadow:
+                0 22px 40px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.16);
         }
 
         @media (max-width: 720px) {
@@ -1418,26 +1444,31 @@
                 <a href="#klikandgo" class="showcase-tile liquid-glass" data-project="klikandgo">
                     <div class="showcase-tile-orb"></div>
                     <span class="showcase-tile-cat">SaaS</span>
+                    <img class="showcase-tile-thumb" src="assets/tile-klikandgo.jpg" alt="Klik&Go preview" loading="lazy" />
                     <span class="showcase-tile-name">Klik&Go</span>
                 </a>
                 <a href="#bativio" class="showcase-tile liquid-glass" data-project="bativio">
                     <div class="showcase-tile-orb"></div>
                     <span class="showcase-tile-cat">Marketplace</span>
+                    <img class="showcase-tile-thumb" src="assets/tile-bativio.jpg" alt="Bativio preview" loading="lazy" />
                     <span class="showcase-tile-name">Bativio</span>
                 </a>
                 <a href="#invoquo" class="showcase-tile liquid-glass" data-project="invoquo">
                     <div class="showcase-tile-orb"></div>
                     <span class="showcase-tile-cat">Fintech</span>
+                    <img class="showcase-tile-thumb" src="assets/tile-invoquo.jpg" alt="Invoquo preview" loading="lazy" />
                     <span class="showcase-tile-name">Invoquo</span>
                 </a>
                 <a href="#ksav" class="showcase-tile liquid-glass" data-project="ksav">
                     <div class="showcase-tile-orb"></div>
                     <span class="showcase-tile-cat">SAV</span>
+                    <img class="showcase-tile-thumb" src="assets/tile-ksav.jpg" alt="Klikphone SAV preview" loading="lazy" />
                     <span class="showcase-tile-name">Klikphone SAV</span>
                 </a>
                 <a href="#pcmi13" class="showcase-tile liquid-glass" data-project="pcmi13">
                     <div class="showcase-tile-orb"></div>
                     <span class="showcase-tile-cat">Service</span>
+                    <img class="showcase-tile-thumb" src="assets/tile-pcmi13.jpg" alt="MonPCMI13 preview" loading="lazy" />
                     <span class="showcase-tile-name">MonPCMI13</span>
                 </a>
             </div>
