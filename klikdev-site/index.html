@@ -1249,6 +1249,9 @@
         .gallery-badge--bativio {
             background: linear-gradient(135deg, rgba(196, 83, 26, 0.95), rgba(125, 47, 9, 0.95));
         }
+        .gallery-badge--pcmi13 {
+            background: linear-gradient(135deg, rgba(34, 197, 230, 0.95), rgba(14, 116, 144, 0.95));
+        }
         .gallery-card figcaption {
             padding: 14px 18px;
             font-size: 13px;
@@ -1428,7 +1431,7 @@
             </h1>
 
             <p class="hero-sub reveal" style="--reveal-delay: 0.2s">
-                On conçoit, développe et déploie des SaaS web et services pour les pros qui n'ont pas le temps d'attendre. Du click&collect à la facturation conforme NF525, du SAV téléphonie à la réparation PC — un seul atelier, cinq façons de simplifier le quotidien.
+                On conçoit, développe et déploie des SaaS web et services pour les pros qui n'ont pas le temps d'attendre. Du click&collect à la facturation conforme NF525, du SAV téléphonie aux attestations parasismiques — un seul atelier, cinq façons de simplifier le quotidien.
             </p>
 
             <div class="hero-ctas reveal" style="--reveal-delay: 0.3s">
@@ -1467,7 +1470,7 @@
                 </a>
                 <a href="#pcmi13" class="showcase-tile liquid-glass" data-project="pcmi13">
                     <div class="showcase-tile-orb"></div>
-                    <span class="showcase-tile-cat">Service</span>
+                    <span class="showcase-tile-cat">BTP</span>
                     <img class="showcase-tile-thumb" src="assets/tile-pcmi13.jpg" alt="MonPCMI13 preview" loading="lazy" />
                     <span class="showcase-tile-name">MonPCMI13</span>
                 </a>
@@ -1844,88 +1847,46 @@
             <article class="project" id="pcmi13">
                 <div class="project-content reveal">
                     <div class="project-meta">
-                        <span class="pill pill--new">Nouveau</span>
-                        <span class="pill">Service · Informatique</span>
-                        <span class="pill">2026</span>
+                        <span class="pill pill--live">Live</span>
+                        <span class="pill">BTP · Conformité parasismique</span>
+                        <span class="pill">2025</span>
                     </div>
                     <h3 class="project-title">MonPC<em>MI13</em></h3>
-                    <p class="project-tagline">Réparation PC à Marseille 13e, sans <em class="serif-italic" style="color: var(--rose);">jargon</em>.</p>
+                    <p class="project-tagline">L'attestation parasismique PCMI13, livrée en 24-48h.</p>
                     <p class="project-desc">
-                        Service de proximité pour la réparation et la maintenance d'ordinateurs PC dans le 13e arrondissement de Marseille. Diagnostic gratuit, devis sous 24h, intervention rapide à domicile ou en atelier. Pour particuliers et TPE.
+                        Plateforme de commande d'attestations parasismiques pour les permis de construire de maisons individuelles. Conforme à l'arrêté du 22/12/2023, applicable aux zones 2, 3, 4 et 5. Chaque document est validé et signé par AZ TECH, bureau d'études structure béton armé.
                     </p>
                     <ul class="project-features">
-                        <li>Diagnostic gratuit sous 24h</li>
-                        <li>Intervention à domicile ou en atelier</li>
-                        <li>Devis transparent, paiement après réparation</li>
-                        <li>Récupération de données spécialisée</li>
+                        <li>Validation par expert systématique</li>
+                        <li>Document conforme à l'arrêté du 22/12/2023</li>
+                        <li>Livraison sous 24 à 48 heures</li>
+                        <li>Couverture décennale incluse</li>
+                        <li>Signé par AZ TECH, BE structure béton armé</li>
                     </ul>
                     <div class="project-stack">
                         <span class="stack-chip">Next.js</span>
-                        <span class="stack-chip">Booking system</span>
-                        <span class="stack-chip">SEO local</span>
-                        <span class="stack-chip">Marseille 13e</span>
+                        <span class="stack-chip">Stripe</span>
+                        <span class="stack-chip">PDF Generation</span>
+                        <span class="stack-chip">Signature électronique</span>
+                        <span class="stack-chip">Vercel</span>
                     </div>
-                    <a href="#" class="project-cta">
+                    <a href="https://monpcmi13.com" class="project-cta">
                         Visiter MonPCMI13
                         <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
                     </a>
                 </div>
 
                 <div class="project-visual reveal liquid-glass">
-                    <div class="glow" style="background: radial-gradient(circle, #FF6B6B 0%, transparent 60%);"></div>
+                    <div class="glow" style="background: radial-gradient(circle, #67E8F9 0%, transparent 60%);"></div>
                     <div class="mock">
                         <div class="mock-bar">
                             <span class="mock-bar-dot" style="background:#FF6B6B"></span>
                             <span class="mock-bar-dot" style="background:#FFD166"></span>
                             <span class="mock-bar-dot" style="background:#00D4AA"></span>
-                            <span class="mock-bar-url">monpcmi13.fr/intervention</span>
+                            <span class="mock-bar-url">monpcmi13.com</span>
+                            <span class="mock-live-badge">LIVE</span>
                         </div>
-                        <div class="mock-content">
-                            <!-- Hero CTA-like -->
-                            <div style="padding:14px; background:linear-gradient(135deg, rgba(255,107,107,.10), rgba(140,31,31,.10)); border-radius:10px; border:1px solid rgba(255,107,107,.20);">
-                                <div style="font-family:var(--mono); font-size:10px; color:var(--rose); letter-spacing:.1em;">DIAGNOSTIC</div>
-                                <div style="font-size:18px; font-weight:600; margin-top:4px;">Gratuit · 24h chrono</div>
-                                <div style="font-size:11px; color:var(--text-secondary); margin-top:6px;">Marseille 13ᵉ et environs</div>
-                            </div>
-
-                            <!-- Service cards -->
-                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
-                                <div style="padding:12px; background:var(--bg-elevated); border-radius:8px;">
-                                    <div style="width:24px; height:24px; border-radius:6px; background:rgba(255,107,107,.15); display:grid; place-items:center; color:var(--rose);">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-                                    </div>
-                                    <div style="font-size:11px; font-weight:600; margin-top:8px;">Écran cassé</div>
-                                    <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">dès 79 €</div>
-                                </div>
-                                <div style="padding:12px; background:var(--bg-elevated); border-radius:8px;">
-                                    <div style="width:24px; height:24px; border-radius:6px; background:rgba(0,212,170,.15); display:grid; place-items:center; color:var(--accent);">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
-                                    </div>
-                                    <div style="font-size:11px; font-weight:600; margin-top:8px;">PC très lent</div>
-                                    <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">dès 49 €</div>
-                                </div>
-                                <div style="padding:12px; background:var(--bg-elevated); border-radius:8px;">
-                                    <div style="width:24px; height:24px; border-radius:6px; background:rgba(108,99,255,.15); display:grid; place-items:center; color:var(--primary-light);">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>
-                                    </div>
-                                    <div style="font-size:11px; font-weight:600; margin-top:8px;">Récup. données</div>
-                                    <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">sur devis</div>
-                                </div>
-                                <div style="padding:12px; background:var(--bg-elevated); border-radius:8px;">
-                                    <div style="width:24px; height:24px; border-radius:6px; background:rgba(255,133,81,.15); display:grid; place-items:center; color:var(--warm);">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" class="svg-stroke"><path d="M9 12h6M12 9v6"/><circle cx="12" cy="12" r="10"/></svg>
-                                    </div>
-                                    <div style="font-size:11px; font-weight:600; margin-top:8px;">Virus / malware</div>
-                                    <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">dès 39 €</div>
-                                </div>
-                            </div>
-
-                            <!-- CTA -->
-                            <div style="display:flex; gap:8px; padding:10px; background:var(--bg-elevated); border-radius:10px; align-items:center;">
-                                <svg width="16" height="16" viewBox="0 0 24 24" class="svg-stroke" style="color:var(--rose)"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                                <span style="font-size:11px;">Marseille 13e · La Rose, Saint-Mitre, Malpassé</span>
-                            </div>
-                        </div>
+                        <img class="mock-img" src="assets/pcmi13-hero.jpg" alt="MonPCMI13 — attestation parasismique" loading="lazy" />
                     </div>
                 </div>
             </article>
@@ -1959,7 +1920,7 @@
                     <div class="gallery-card-frame">
                         <img src="assets/ksav-homepage.jpg" alt="Klikphone SAV — page d'accueil" loading="lazy" />
                     </div>
-                    <figcaption>Page d'accueil · choix du parcours <span class="gallery-num">01 / 08</span></figcaption>
+                    <figcaption>Page d'accueil · choix du parcours <span class="gallery-num">01 / 09</span></figcaption>
                 </figure>
 
                 <figure class="gallery-card">
@@ -1967,7 +1928,7 @@
                     <div class="gallery-card-frame">
                         <img src="assets/ksav-dashboard.jpg" alt="Klikphone SAV — Tableau de bord" loading="lazy" />
                     </div>
-                    <figcaption>Tableau de bord pro · vue temps réel <span class="gallery-num">02 / 08</span></figcaption>
+                    <figcaption>Tableau de bord pro · vue temps réel <span class="gallery-num">02 / 09</span></figcaption>
                 </figure>
 
                 <figure class="gallery-card">
@@ -1975,7 +1936,7 @@
                     <div class="gallery-card-frame">
                         <img src="assets/ksav-suivi.jpg" alt="Suivi de réparation client" loading="lazy" />
                     </div>
-                    <figcaption>Suivi de réparation côté client <span class="gallery-num">03 / 08</span></figcaption>
+                    <figcaption>Suivi de réparation côté client <span class="gallery-num">03 / 09</span></figcaption>
                 </figure>
 
                 <figure class="gallery-card">
@@ -1983,7 +1944,7 @@
                     <div class="gallery-card-frame">
                         <img src="assets/ksav-reporting.jpg" alt="Reporting Klikphone" loading="lazy" />
                     </div>
-                    <figcaption>Reporting & KPIs siège <span class="gallery-num">04 / 08</span></figcaption>
+                    <figcaption>Reporting & KPIs siège <span class="gallery-num">04 / 09</span></figcaption>
                 </figure>
 
                 <figure class="gallery-card">
@@ -1991,7 +1952,7 @@
                     <div class="gallery-card-frame">
                         <img src="assets/ksav-reporting-graphs.jpg" alt="Graphiques performance" loading="lazy" />
                     </div>
-                    <figcaption>Graphiques performance & tendances <span class="gallery-num">05 / 08</span></figcaption>
+                    <figcaption>Graphiques performance & tendances <span class="gallery-num">05 / 09</span></figcaption>
                 </figure>
 
                 <figure class="gallery-card">
@@ -1999,7 +1960,7 @@
                     <div class="gallery-card-frame">
                         <img src="assets/ksav-depot.jpg" alt="Formulaire dépôt en boutique" loading="lazy" />
                     </div>
-                    <figcaption>Formulaire dépôt en boutique <span class="gallery-num">06 / 08</span></figcaption>
+                    <figcaption>Formulaire dépôt en boutique <span class="gallery-num">06 / 09</span></figcaption>
                 </figure>
 
                 <figure class="gallery-card">
@@ -2007,7 +1968,7 @@
                     <div class="gallery-card-frame">
                         <img src="assets/ksav-avis-google.jpg" alt="Module avis Google" loading="lazy" />
                     </div>
-                    <figcaption>Avis Google · gestion intégrée <span class="gallery-num">07 / 08</span></figcaption>
+                    <figcaption>Avis Google · gestion intégrée <span class="gallery-num">07 / 09</span></figcaption>
                 </figure>
 
                 <figure class="gallery-card">
@@ -2015,7 +1976,15 @@
                     <div class="gallery-card-frame">
                         <img src="assets/bativio-artisans.jpg" alt="Bativio — listing artisans" loading="lazy" />
                     </div>
-                    <figcaption>Annuaire artisans · résultats par ville <span class="gallery-num">08 / 08</span></figcaption>
+                    <figcaption>Annuaire artisans · résultats par ville <span class="gallery-num">08 / 09</span></figcaption>
+                </figure>
+
+                <figure class="gallery-card">
+                    <span class="gallery-badge gallery-badge--pcmi13">MonPCMI13</span>
+                    <div class="gallery-card-frame">
+                        <img src="assets/pcmi13-hero.jpg" alt="MonPCMI13 — attestation parasismique" loading="lazy" />
+                    </div>
+                    <figcaption>Attestation parasismique · 24-48h <span class="gallery-num">09 / 09</span></figcaption>
                 </figure>
 
             </div>

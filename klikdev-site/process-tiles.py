@@ -40,32 +40,51 @@ def save_tile(img, name, quality=86):
 PV_BOX = (1526, 330, 2584, 1176)  # x1, y1, x2, y2 in 2880x1506 retina screenshot
 
 # ─── Klik&Go (from raw-tile-klikandgo.png) ───
-img = Image.open(f"{ROOT}/raw-tile-klikandgo.png").convert("RGB")
-img = crop_resize(img, PV_BOX)
-save_tile(img, "klikandgo")
+src = f"{ROOT}/raw-tile-klikandgo.png"
+if os.path.exists(src):
+    img = Image.open(src).convert("RGB")
+    img = crop_resize(img, PV_BOX)
+    save_tile(img, "klikandgo")
 
 # ─── Invoquo ───
-img = Image.open(f"{ROOT}/raw-tile-invoquo.png").convert("RGB")
-img = crop_resize(img, PV_BOX)
-save_tile(img, "invoquo")
+src = f"{ROOT}/raw-tile-invoquo.png"
+if os.path.exists(src):
+    img = Image.open(src).convert("RGB")
+    img = crop_resize(img, PV_BOX)
+    save_tile(img, "invoquo")
 
-# ─── MonPCMI13 ───
-img = Image.open(f"{ROOT}/raw-tile-pcmi13.png").convert("RGB")
-img = crop_resize(img, PV_BOX)
-save_tile(img, "pcmi13")
+# ─── MonPCMI13 (real site monpcmi13.com) ───
+src = f"{ROOT}/raw-pcmi13.png"
+if os.path.exists(src):
+    img = Image.open(src).convert("RGB")
+    # Direct 5:4 crop anchored left to keep full headline visible + part of doc
+    # Source 2880x1506. Strip top nav (y=0-180) and bottom cookie (y=1450+)
+    # Crop 1587x1270 from (40, 180) → 5:4 ratio, then resize
+    img = img.crop((40, 180, 1627, 1450))
+    img = img.resize((TILE_W, TILE_H), Image.LANCZOS)
+    img.save(f"{OUT}/tile-pcmi13.jpg", "JPEG", quality=86, optimize=True, progressive=True)
+    print(f"✓ tile-pcmi13.jpg  ({TILE_W}, {TILE_H})  ({os.path.getsize(f'{OUT}/tile-pcmi13.jpg')/1024:.0f} Ko)")
+    # Also save full hero version for project-visual
+    full = Image.open(src).convert("RGB")
+    fw, fh = full.size
+    nh = int(fh * 1800 / fw)
+    full = full.resize((1800, nh), Image.LANCZOS)
+    full.save(f"{OUT}/pcmi13-hero.jpg", "JPEG", quality=88, optimize=True, progressive=True)
+    print(f"✓ pcmi13-hero.jpg  {full.size}")
 
 # ─── Bativio (use real capture) ───
-# bativio-hero.jpg is 1800x941. Take a center crop showing the hero headline.
-img = Image.open(f"{OUT}/bativio-hero.jpg").convert("RGB")
-# Crop a centered area with the headline (avoid top nav, bottom search inputs)
-img = crop_resize(img, (300, 100, 1500, 1000))
-save_tile(img, "bativio")
+src = f"{OUT}/bativio-hero.jpg"
+if os.path.exists(src):
+    img = Image.open(src).convert("RGB")
+    img = crop_resize(img, (300, 100, 1500, 1000))
+    save_tile(img, "bativio")
 
 # ─── Klikphone SAV (use homepage splash) ───
-# ksav-homepage.jpg is 1800x1125. Center crop with the KLIKPHONE logo + cards.
-img = Image.open(f"{OUT}/ksav-homepage.jpg").convert("RGB")
-img = crop_resize(img, (350, 0, 1450, 1125))
-save_tile(img, "ksav")
+src = f"{OUT}/ksav-homepage.jpg"
+if os.path.exists(src):
+    img = Image.open(src).convert("RGB")
+    img = crop_resize(img, (350, 0, 1450, 1125))
+    save_tile(img, "ksav")
 
 print("\nDONE — Tile thumbnails:")
 for f in sorted(os.listdir(OUT)):
